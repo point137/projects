@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TuHabi Escrow & Settler: Investigación Estratégica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Contenedores de gráficos responsivos */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 100%;
+            min-height: 350px;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 250px;
+                min-height: 250px;
+                padding: 0.5rem;
+            }
+        }
+
+        /* Interactividad y transiciones de los menús */
+        .tab-btn { transition: all 0.3s ease; }
+        .tab-btn.active { 
+            border-bottom: 2px solid #4f46e5;
+            color: #4f46e5;
+            font-weight: 600;
+        }
+        
+        /* Animaciones para el panel de arquitectura */
+        .arch-layer { transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+        .arch-layer:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .arch-layer.selected { border-left: 4px solid #4f46e5; background-color: #f5f3ff; }
+
+        .partner-card { transition: all 0.2s; }
+        .partner-card:hover { transform: scale(1.02); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+
+        /* Ocultar/Mostrar secciones con animación suave */
+        .section-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .section-content.active { display: block; }
+        
+        .layer-desc { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .layer-desc.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tema general y scrollbar */
+        body { background-color: #fafaf9; color: #1c1917; }
+        
+        /* Estilos personalizados para la tabla para mantener la estética premium */
+        .table-row-hover:hover { background-color: #f8fafc; transition: background-color 0.2s ease; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <div class="text-xl md:text-2xl font-bold text-indigo-700 tracking-tight">TuHabi <span class="text-stone-500 font-light">Escrow & Settler</span></div>
+                </div>
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                    <button class="tab-btn active text-stone-500 hover:text-indigo-600 px-2 py-2 text-sm font-medium" data-target="resumen">Resumen</button>
+                    <button class="tab-btn text-stone-500 hover:text-indigo-600 px-2 py-2 text-sm font-medium" data-target="mercado">Mercado</button>
+                    <button class="tab-btn text-stone-500 hover:text-indigo-600 px-2 py-2 text-sm font-medium" data-target="arquitectura">Arquitectura</button>
+                    <button class="tab-btn text-stone-500 hover:text-indigo-600 px-2 py-2 text-sm font-medium" data-target="partners">Partners</button>
+                    <button class="tab-btn text-stone-500 hover:text-indigo-600 px-2 py-2 text-sm font-medium" data-target="plan">Plan de Trabajo</button>
+                </div>
+                <!-- Mobile Nav -->
+                <div class="md:hidden flex items-center w-1/2">
+                    <select id="mobile-nav" class="bg-stone-100 border border-stone-300 rounded p-2 text-sm font-medium text-stone-700 w-full focus:ring-indigo-500 focus:border-indigo-500 outline-none">
+                        <option value="resumen">Resumen</option>
+                        <option value="mercado">Mercado</option>
+                        <option value="arquitectura">Arquitectura</option>
+                        <option value="partners">Partners (MVP)</option>
+                        <option value="plan">Plan de Trabajo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8 w-full">
+        
+        <!-- SECTION 1: Resumen Ejecutivo -->
+        <section id="resumen" class="section-content active">
+            <div class="mb-8">
+                <h1 class="text-2xl md:text-3xl font-bold text-stone-900 mb-4">Estrategia de Escrow y Liquidación (Settler)</h1>
+                <p class="text-stone-600 text-sm md:text-base mb-6 max-w-4xl">
+                    Este documento presenta la estructura y plan para implementar un motor de <b>Escrow (Fideicomiso Digital) y Settler (Liquidador)</b> integrado en el ecosistema de TuHabi.
+                    <br><br>
+                    El cierre inmobiliario en LatAm está fragmentado y carece de trazabilidad digital. Una solución de Escrow centralizado permite asegurar los fondos de los compradores y garantizar el pago a vendedores/brokers sólo cuando se cumplen las condiciones legales, actuando como el <b>"backbone"</b> de las transacciones.
+                    <br><br>
+                    La ventaja más grande para el ecosistema es cómo habilita un mayor <b>"stickiness"</b> en sus distintas verticales y sinergias entre ellas.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100 border-t-4 border-t-indigo-500">
+                    <div class="text-3xl mb-2">&#127960;</div>
+                    <h3 class="text-lg font-bold text-stone-800 mb-2">Para Propiedades.com</h3>
+                    <p class="text-stone-600 text-sm">Transición de portal de clasificados a marketplace transaccional. Habilita el botón "Apartar" o "Comprar", reteniendo y dando visibilidad del pago de manera segura hasta la escrituración.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100 border-t-4 border-t-indigo-500">
+                    <div class="text-3xl mb-2">&#129309;</div>
+                    <h3 class="text-lg font-bold text-stone-800 mb-2">Para Pulppo</h3>
+                    <p class="text-stone-600 text-sm">Garantiza el cobro para brokers asociados. El Settler liquida automáticamente el split de comisiones (Broker, Pulppo, Notaría) al cierre, eliminando fricciones.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100 border-t-4 border-t-indigo-500">
+                    <div class="text-3xl mb-2">&#128181;</div>
+                    <h3 class="text-lg font-bold text-stone-800 mb-2">Para TuHabi (iBuyer)</h3>
+                    <p class="text-stone-600 text-sm">Optimización de tesorería, reducción de riesgo en la compra-venta directa y agilidad en la transacción. Estandariza la dispersión de fondos.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Mercado -->
+        <section id="mercado" class="section-content">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-stone-900 mb-2">Soluciones Similares en el Mercado</h2>
+                <p class="text-stone-600 text-sm md:text-base mb-6">
+                    Comparativa del ecosistema tradicional contra soluciones PropTech maduras (EE.UU.) y el target estratégico de TuHabi en LatAm.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 items-stretch">
+                <!-- Competitors List -->
+                <div class="space-y-4 flex flex-col justify-between">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-100">
+                        <div class="flex flex-wrap justify-between items-start mb-2 gap-2">
+                            <h4 class="font-bold text-indigo-700">Qualia / Endpoint (EE.UU.)</h4>
+                            <span class="text-xs bg-stone-200 text-stone-700 px-2 py-1 rounded font-medium">Referentes Globales</span>
+                        </div>
+                        <p class="text-sm text-stone-600"><b>Modelo:</b> Plataformas SaaS de "Title & Escrow". Digitalizan el flujo, desde el depósito hasta la dispersión. <br><span class="text-xs text-stone-500 block mt-1">Aprendizaje: La integración vertical es clave para el éxito.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-100">
+                        <div class="flex flex-wrap justify-between items-start mb-2 gap-2">
+                            <h4 class="font-bold text-indigo-700">Dotloop / DocuSign Rooms</h4>
+                            <span class="text-xs bg-stone-200 text-stone-700 px-2 py-1 rounded font-medium">Gestión Documental</span>
+                        </div>
+                        <p class="text-sm text-stone-600"><b>Modelo:</b> Espacios colaborativos para firmas y compliance inmobiliario. <br><span class="text-xs text-stone-500 block mt-1">Limitación: Resuelven la parte legal (Transaction Management), pero no manejan ni dispersan los fondos reales.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-100">
+                        <div class="flex flex-wrap justify-between items-start mb-2 gap-2">
+                            <h4 class="font-bold text-indigo-700">Mercado Pago / Stripe</h4>
+                            <span class="text-xs bg-stone-200 text-stone-700 px-2 py-1 rounded font-medium">Rieles de Pago</span>
+                        </div>
+                        <p class="text-sm text-stone-600"><b>Modelo:</b> Split de pagos y retención de fondos generalista. <br><span class="text-xs text-stone-500 block mt-1">Limitación: No están diseñados para montos inmobiliarios ni lógica notarial.</span></p>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-100">
+                        <div class="flex flex-wrap justify-between items-start mb-2 gap-2">
+                            <h4 class="font-bold text-indigo-700">Notarías Tradicionales</h4>
+                            <span class="text-xs bg-stone-200 text-stone-700 px-2 py-1 rounded font-medium">Status Quo (LatAm)</span>
+                        </div>
+                        <p class="text-sm text-stone-600"><b>Modelo:</b> Cheques de caja o fideicomisos bancarios manuales. <br><span class="text-xs text-stone-500 block mt-1">Oportunidad: Darles un panel digital para validar el hito y dispersar automáticamente.</span></p>
+                    </div>
+                </div>
+
+                <!-- Radar Chart -->
+                <div class="flex flex-col items-center h-full">
+                    <h3 class="text-lg font-bold text-stone-800 border-b pb-2 mb-4 w-full text-left">Comparativa de Capacidades</h3>
+                    <div class="chart-container w-full flex-grow">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Arquitectura -->
+        <section id="arquitectura" class="section-content">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-stone-900 mb-2">Arquitectura de Alto Nivel</h2>
+                <p class="text-stone-600 text-sm md:text-base">
+                    Este es un diseño inicial de cómo puede lucir la arquitectura de la solución. Concluyendo la fase de <b>Discovery</b> se confirmaría la arquitectura y la priorización de implementación. <i>Interactúa con las diferentes capas haciendo clic en los bloques.</i>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Interactive Diagram Controls -->
+                <div class="lg:col-span-1 space-y-3">
+                    <div class="text-sm font-bold text-stone-500 uppercase tracking-wide mb-2">Capas del Sistema</div>
+                    
+                    <div class="arch-layer selected bg-white p-3 md:p-4 rounded border border-stone-200" data-layer="negocio">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl md:text-2xl">&#128188;</span>
+                            <span class="font-bold text-stone-800 text-sm md:text-base">1. Nivel de Negocio</span>
+                        </div>
+                    </div>
+                    
+                    <div class="arch-layer bg-white p-3 md:p-4 rounded border border-stone-200" data-layer="operativa">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl md:text-2xl">&#9881;</span>
+                            <span class="font-bold text-stone-800 text-sm md:text-base">2. Nivel Operativo</span>
+                        </div>
+                    </div>
+                    
+                    <div class="arch-layer bg-white p-3 md:p-4 rounded border border-stone-200" data-layer="tecnologica">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl md:text-2xl">&#128187;</span>
+                            <span class="font-bold text-stone-800 text-sm md:text-base">3. Nivel Tecnológico</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer Details Panel -->
+                <div class="lg:col-span-2 bg-white rounded-lg shadow-sm border border-stone-200 p-5 md:p-6 h-auto">
+                    
+                    <!-- Layer Content: Negocio -->
+                    <div id="desc-negocio" class="layer-desc active">
+                        <h3 class="text-lg md:text-xl font-bold text-indigo-700 mb-4 border-b pb-2">Arquitectura de Negocio</h3>
+                        <p class="text-stone-700 text-sm md:text-base mb-4">El modelo se centra en ser el intermediario neutral y monetizar la fricción transaccional.</p>
+                        <ul class="space-y-3 text-sm text-stone-600">
+                            <li class="flex items-start"><span class="text-indigo-500 mr-2">&#10003;</span> <span><b>Estructura Legal:</b> Fideicomiso o mandato. Los fondos no entran al balance de TuHabi, protegiendo a los usuarios.</span></li>
+                            <li class="flex items-start"><span class="text-indigo-500 mr-2">&#10003;</span> 
+                                <div>
+                                    <b>Monetización:</b> 
+                                    <ul class="ml-4 mt-1 list-disc text-stone-500 text-xs md:text-sm">
+                                        <li>Transaction Fee (Tarifa fija por cierre).</li>
+                                        <li>Float: Rendimiento sobre saldos en escrow (sujeto a regulación).</li>
+                                        <li>SaaS Fee a notarías/brokers externos.</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Layer Content: Operativa -->
+                    <div id="desc-operativa" class="layer-desc">
+                        <h3 class="text-lg md:text-xl font-bold text-indigo-700 mb-4 border-b pb-2">Flujo Operativo (Settlement)</h3>
+                        <p class="text-stone-700 text-sm md:text-base mb-4">Proceso secuencial desde la oferta hasta la entrega de fondos.</p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex">
+                                <div class="flex flex-col items-center mr-3 md:mr-4">
+                                    <div class="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold text-xs shrink-0">1</div>
+                                    <div class="h-full w-px bg-indigo-200 my-1"></div>
+                                </div>
+                                <div class="pb-2">
+                                    <h4 class="font-bold text-stone-800 text-sm">Onboarding & KYC/AML</h4>
+                                    <p class="text-xs text-stone-500 mt-1">Validación de identidad y revisión de listas negras. Requisito legal.</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex flex-col items-center mr-3 md:mr-4">
+                                    <div class="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold text-xs shrink-0">2</div>
+                                    <div class="h-full w-px bg-indigo-200 my-1"></div>
+                                </div>
+                                <div class="pb-2">
+                                    <h4 class="font-bold text-stone-800 text-sm">Fondeo (Earnest Money)</h4>
+                                    <p class="text-xs text-stone-500 mt-1">Transferencia SPEI a cuenta CLABE virtual asignada a la operación.</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex flex-col items-center mr-3 md:mr-4">
+                                    <div class="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold text-xs shrink-0">3</div>
+                                    <div class="h-full w-px bg-indigo-200 my-1"></div>
+                                </div>
+                                <div class="pb-2">
+                                    <h4 class="font-bold text-stone-800 text-sm">Validación Notarial</h4>
+                                    <p class="text-xs text-stone-500 mt-1">La notaría confirma vía panel/API que la propiedad está lista para escritura.</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex flex-col items-center mr-3 md:mr-4">
+                                    <div class="w-6 h-6 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-xs shrink-0">4</div>
+                                </div>
+                                <div class="pb-2">
+                                    <h4 class="font-bold text-stone-800 text-sm">Dispersión (Settlement)</h4>
+                                    <p class="text-xs text-stone-500 mt-1">El motor calcula el "split" y dispara transferencias (Vendedor, Notaría, Broker).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Layer Content: Tecnologica -->
+                    <div id="desc-tecnologica" class="layer-desc">
+                        <h3 class="text-lg md:text-xl font-bold text-indigo-700 mb-4 border-b pb-2">Arquitectura Tecnológica</h3>
+                        <p class="text-stone-700 text-sm md:text-base mb-4">Diseño basado en microservicios, API-first y ledgers inmutables.</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-stone-50 p-3 rounded border border-stone-200">
+                                <div class="font-bold text-stone-800 text-sm mb-1">&#9889; Core Escrow Engine</div>
+                                <p class="text-xs text-stone-600">Servicio central que maneja las máquinas de estado de cada transacción.</p>
+                            </div>
+                            <div class="bg-stone-50 p-3 rounded border border-stone-200">
+                                <div class="font-bold text-stone-800 text-sm mb-1">&#128210; Ledger Inmutable</div>
+                                <p class="text-xs text-stone-600">Base de datos transaccional para doble contabilidad. Registra sin permitir borrados.</p>
+                            </div>
+                            <div class="bg-stone-50 p-3 rounded border border-stone-200">
+                                <div class="font-bold text-stone-800 text-sm mb-1">&#128176; Gateway de Pagos</div>
+                                <p class="text-xs text-stone-600">Integración BaaS (ej. Covalto / STP) para generación de CLABEs y transferencias.</p>
+                            </div>
+                            <div class="bg-stone-50 p-3 rounded border border-stone-200">
+                                <div class="font-bold text-stone-800 text-sm mb-1">&#128279; API de Integración</div>
+                                <p class="text-xs text-stone-600">Webhooks para que Propiedades.com y Pulppo consulten estados y envíen triggers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Partners -->
+        <section id="partners" class="section-content">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-stone-900 mb-2">Partners Estratégicos (Módulo Acelerador)</h2>
+                <p class="text-stone-600 text-sm md:text-base">
+                    La estrategia para el MVP es integrar "Building Blocks" del ecosistema actual, sumando opciones para validar la idea lo más rápido posible (PMF) y de ahí medir impactos y evaluar el desarrollo de soluciones <i>in-house</i> o seguir apalancándonos de alianzas. <br><br>
+                    <span class="bg-indigo-50 text-indigo-800 px-2 py-1 rounded font-medium text-xs md:text-sm inline-block">Nota:</span> Los siguientes proveedores se muestran a modo de <b>ejemplo ilustrativo</b>; la selección final dependerá del análisis técnico y comercial durante la fase de Discovery.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="col-span-1 flex flex-col space-y-4">
+                    <h3 class="text-lg font-bold text-stone-800 border-b-2 border-indigo-200 pb-1">1. Identidad y Compliance</h3>
+                    <div class="partner-card bg-white p-4 rounded-lg shadow-sm border border-stone-200 flex-grow">
+                        <h4 class="font-bold text-indigo-700 mb-1">Incode / Truora</h4>
+                        <p class="text-xs text-stone-500 mb-2 font-medium">Validación Biométrica y PLD</p>
+                        <p class="text-sm text-stone-600 mb-3">Sistemas robustos de validación de identificaciones (INE/Pasaporte) y cruce con listas negras internacionales.</p>
+                        <div class="bg-indigo-50 p-2 rounded text-xs text-indigo-800 mt-auto">
+                            <b>MVP Fit:</b> Obligatorio para cumplimiento legal de captación y envío de recursos.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-1 flex flex-col space-y-4">
+                    <h3 class="text-lg font-bold text-stone-800 border-b-2 border-indigo-200 pb-1">2. Pagos y Fideicomiso (BaaS)</h3>
+                    <div class="partner-card bg-white p-4 rounded-lg shadow-sm border border-stone-200">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="font-bold text-indigo-700">Covalto</h4>
+                            <span class="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded">B2B Institucional</span>
+                        </div>
+                        <p class="text-sm text-stone-600 mb-2">Licencia bancaria. Permite estructurar subcuentas, fideicomisos y ofrecer rendimiento (float).</p>
+                    </div>
+                    <div class="partner-card bg-white p-4 rounded-lg shadow-sm border border-stone-200">
+                        <h4 class="font-bold text-indigo-700 mb-1">STP</h4>
+                        <p class="text-sm text-stone-600 mb-2">Creación de CLABEs virtuales dinámicas y dispersión masiva vía SPEI 24/7.</p>
+                    </div>
+                </div>
+
+                <div class="col-span-1 flex flex-col space-y-4">
+                    <h3 class="text-lg font-bold text-stone-800 border-b-2 border-indigo-200 pb-1">3. Legal (Smart Contracts)</h3>
+                    <div class="partner-card bg-white p-4 rounded-lg shadow-sm border border-stone-200 flex-grow">
+                        <h4 class="font-bold text-indigo-700 mb-1">Mifiel</h4>
+                        <p class="text-xs text-stone-500 mb-2 font-medium">Firma Electrónica Avanzada</p>
+                        <p class="text-sm text-stone-600 mb-3">Gestión de firmas con certificado SAT (NOM-151) para contratos de compraventa y escrow.</p>
+                        <div class="bg-indigo-50 p-2 rounded text-xs text-indigo-800 mt-auto">
+                            <b>MVP Fit:</b> Da validez jurídica a la instrucción de dispersión que recibe el Settler.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Plan de Trabajo -->
+        <section id="plan" class="section-content">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-stone-900 mb-2">Plan de Trabajo Sugerido (Roadmap 6 Meses)</h2>
+                <p class="text-stone-600 text-sm md:text-base">
+                    Estrategia de ejecución escalonada. Actividades y entregables clave orientados a alcanzar el Product-Market Fit sin comprometer capital excesivo en el desarrollo inicial.
+                </p>
+            </div>
+
+            <div class="mb-8 p-5 bg-white rounded-lg shadow-sm border border-stone-200">
+                <h3 class="text-sm font-bold text-stone-600 uppercase tracking-wider mb-4 border-b border-stone-100 pb-2">Timeline Ejecutiva</h3>
+                
+                <div class="relative w-full">
+                    <!-- Grid Headers -->
+                    <div class="grid grid-cols-6 text-center text-xs font-semibold text-stone-400 mb-2">
+                        <div>Mes 1</div><div>Mes 2</div><div>Mes 3</div><div>Mes 4</div><div>Mes 5</div><div>Mes 6</div>
+                    </div>
+                    
+                    <!-- Bars -->
+                    <div class="space-y-2 relative">
+                        <!-- Fase 1 -->
+                        <div class="grid grid-cols-6 gap-1">
+                            <div class="col-span-1 bg-indigo-600 text-white text-xs px-3 py-2 rounded-md shadow-sm font-medium z-10 relative hover:bg-indigo-700 transition-colors">Fase 1: Discovery</div>
+                            <div class="col-span-5"></div>
+                        </div>
+                        
+                        <!-- Fase 2 (Traslape con 1) -->
+                        <div class="grid grid-cols-12 gap-1 -mt-5 relative z-0">
+                            <div class="col-span-1"></div>
+                            <div class="col-span-3 bg-indigo-400 text-white text-xs px-3 py-2 rounded-md shadow-sm font-medium hover:bg-indigo-500 transition-colors pl-6">Fase 2: Estructuración</div>
+                            <div class="col-span-8"></div>
+                        </div>
+
+                        <!-- Fase 3 -->
+                        <div class="grid grid-cols-6 gap-1 mt-1">
+                            <div class="col-span-2"></div>
+                            <div class="col-span-2 bg-stone-500 text-white text-xs px-3 py-2 rounded-md shadow-sm font-medium hover:bg-stone-600 transition-colors">Fase 3: MVP Escrow & Settler</div>
+                            <div class="col-span-2"></div>
+                        </div>
+
+                        <!-- Fase 4 -->
+                        <div class="grid grid-cols-6 gap-1">
+                            <div class="col-span-4"></div>
+                            <div class="col-span-1 bg-stone-400 text-white text-xs px-3 py-2 rounded-md shadow-sm font-medium hover:bg-stone-500 transition-colors">Fase 4: Piloto</div>
+                            <div class="col-span-1"></div>
+                        </div>
+                        
+                        <!-- Fase 5 -->
+                        <div class="grid grid-cols-6 gap-1">
+                            <div class="col-span-5"></div>
+                            <div class="col-span-1 bg-stone-300 text-stone-700 text-xs px-3 py-2 rounded-md shadow-sm font-medium hover:bg-stone-400 hover:text-white transition-colors">Fase 5: Rollout</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla Ejecutiva -->
+            <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-stone-200 mb-8">
+                <table class="min-w-full divide-y divide-stone-200 text-sm">
+                    <thead class="bg-stone-50">
+                        <tr>
+                            <th scope="col" class="px-4 py-3 text-left font-bold text-stone-600 uppercase tracking-wider w-1/4 border-r border-stone-200">Fase</th>
+                            <th scope="col" class="px-4 py-3 text-left font-bold text-stone-600 uppercase tracking-wider w-2/5 border-r border-stone-200">Principales Actividades e Hitos</th>
+                            <th scope="col" class="px-4 py-3 text-left font-bold text-stone-600 uppercase tracking-wider">Entregables</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-stone-100">
+                        <tr class="table-row-hover">
+                            <td class="px-4 py-4 align-top border-l-4 border-transparent hover:border-indigo-500 transition-colors">
+                                <span class="font-bold text-indigo-700 block text-base">Fase 1: Discovery</span>
+                                <span class="text-xs font-semibold text-stone-500 uppercase tracking-wide">Mes 1</span>
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-700">
+                                Mapeo detallado y confirmación de la solución, identificación de stakeholders clave, análisis regulatorio preliminar y definición de los requisitos mínimos viables.
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-600">
+                                Documento de Arquitectura Confirmada, Scope de MVP y Matriz de Riesgos.
+                            </td>
+                        </tr>
+                        <tr class="table-row-hover">
+                            <td class="px-4 py-4 align-top border-l-4 border-transparent hover:border-indigo-500 transition-colors">
+                                <span class="font-bold text-indigo-700 block text-base">Fase 2: Estructuración</span>
+                                <span class="text-xs font-semibold text-stone-500 uppercase tracking-wide">Mes 1-3 (Traslape)</span>
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-700">
+                                Definición de la estructura legal (mandato vs fideicomiso) y formalización de alianzas estratégicas necesarias (BaaS, KYC, Firmas).
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-600">
+                                Contratos de Partnerships firmados y Flujos Legales autorizados.
+                            </td>
+                        </tr>
+                        <tr class="table-row-hover">
+                            <td class="px-4 py-4 align-top border-l-4 border-transparent hover:border-indigo-500 transition-colors">
+                                <span class="font-bold text-indigo-700 block text-base">Fase 3: MVP Escrow & Settler</span>
+                                <span class="text-xs font-semibold text-stone-500 uppercase tracking-wide">Mes 3-4</span>
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-700">
+                                Desarrollo del "Ledger" interno y conexiones de APIs necesarias para generación de cuentas virtuales (fondeo) y flujos de dispersión.
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-600">
+                                Motor de Escrow funcional en ambiente de pruebas (Staging). <br><br><span class="text-xs text-indigo-600 bg-indigo-50 px-2 py-1 rounded block"><i>Nota: El alcance exacto de este motor se definirá durante la fase de Discovery.</i></span>
+                            </td>
+                        </tr>
+                        <tr class="table-row-hover">
+                            <td class="px-4 py-4 align-top border-l-4 border-transparent hover:border-indigo-500 transition-colors">
+                                <span class="font-bold text-indigo-700 block text-base">Fase 4: Piloto y Medición</span>
+                                <span class="text-xs font-semibold text-stone-500 uppercase tracking-wide">Mes 5</span>
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-700">
+                                Ejecución del piloto controlado con transacciones directas (TuHabi iBuyer). Monitoreo de flujos de dinero y tiempos de conciliación.
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-600">
+                                MVP en Producción y Dashboard de Métricas Operativas.
+                            </td>
+                        </tr>
+                        <tr class="table-row-hover">
+                            <td class="px-4 py-4 align-top border-l-4 border-transparent hover:border-indigo-500 transition-colors">
+                                <span class="font-bold text-indigo-700 block text-base">Fase 5: Estrategia de Despliegue</span>
+                                <span class="text-xs font-semibold text-stone-500 uppercase tracking-wide">Mes 6</span>
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-700">
+                                Evaluación de resultados y PMF. Definición de estrategia: desarrollo de soluciones in-house vs continuar apalancando alianzas, y plan de rollout hacia Propiedades.com y Pulppo.
+                            </td>
+                            <td class="px-4 py-4 align-top text-stone-600">
+                                Reporte de impacto comercial/operativo y plan estratégico de escala.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-indigo-50 border-l-4 border-indigo-600 p-5 rounded-r-lg shadow-sm">
+                <h3 class="text-indigo-900 font-bold text-lg mb-3 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                    Métricas de Éxito
+                </h3>
+                <p class="text-sm text-indigo-800 mb-4">El impacto de la solución se medirá principalmente a través de la evolución de las siguientes métricas clave en el ecosistema TuHabi:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded shadow-sm border border-indigo-100 transition-transform hover:-translate-y-1">
+                        <div class="text-2xl mb-1">📈</div>
+                        <h4 class="font-bold text-indigo-900 text-sm">1. Incremento de Transacciones</h4>
+                        <p class="text-xs text-indigo-700 mt-1">Impulsado por los beneficios directos que aporta la solución: mayor seguridad de los fondos, visibilidad en tiempo real y agilidad en el cierre.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow-sm border border-indigo-100 transition-transform hover:-translate-y-1">
+                        <div class="text-2xl mb-1">💵</div>
+                        <h4 class="font-bold text-indigo-900 text-sm">2. Incremento de Revenue</h4>
+                        <p class="text-xs text-indigo-700 mt-1">Generado tanto de manera directa por la solución (Transaction fees, Float/Rendimientos) como por el incremento global de transacciones catalizadas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-stone-200 mt-8 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-stone-500">
+            &copy; 2026 Diseño de Solución Escrow y Settler para TuHabi.
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Navigation Logic ---
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const mobileNav = document.getElementById('mobile-nav');
+            const sections = document.querySelectorAll('.section-content');
+            let chartInitialized = false;
+
+            function switchTab(targetId) {
+                // Update Desktop Buttons
+                tabBtns.forEach(btn => {
+                    if (btn.dataset.target === targetId) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
+                });
+                
+                // Update Mobile Select
+                mobileNav.value = targetId;
+
+                // Update Sections visibility
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+
+                // Initialize chart safely when "mercado" tab is active
+                if (targetId === 'mercado' && !chartInitialized) {
+                    setTimeout(initRadarChart, 100); 
+                    chartInitialized = true;
+                }
+            }
+
+            // Desktop Tab Click
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    switchTab(e.target.dataset.target);
+                });
+            });
+
+            // Mobile Dropdown Change
+            mobileNav.addEventListener('change', (e) => {
+                switchTab(e.target.value);
+            });
+
+
+            // --- Interactive Architecture Logic ---
+            const archLayers = document.querySelectorAll('.arch-layer');
+            const layerDescs = document.querySelectorAll('.layer-desc');
+
+            archLayers.forEach(layer => {
+                layer.addEventListener('click', () => {
+                    const targetLayer = layer.dataset.layer;
+                    
+                    // Update Layer Buttons
+                    archLayers.forEach(l => l.classList.remove('selected'));
+                    layer.classList.add('selected');
+
+                    // Update Details Panel
+                    layerDescs.forEach(d => {
+                        if (d.id === `desc-${targetLayer}`) {
+                            d.classList.add('active');
+                        } else {
+                            d.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+
+            // --- Chart.js Initialization ---
+            function initRadarChart() {
+                const canvas = document.getElementById('marketChart');
+                if(!canvas) return;
+                
+                const ctx = canvas.getContext('2d');
+                
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: [
+                            ['Velocidad', 'de Cierre'], 
+                            ['Seguridad', 'Legal'], 
+                            ['Automatización'], 
+                            ['Integración de', 'Ecosistema'], 
+                            ['Eficiencia', 'Costos']
+                        ],
+                        datasets: [
+                            {
+                                label: 'Status Quo (Notarías)',
+                                data: [3, 8, 2, 1, 4],
+                                backgroundColor: 'rgba(120, 113, 108, 0.2)',
+                                borderColor: 'rgba(120, 113, 108, 1)',
+                                pointBackgroundColor: 'rgba(120, 113, 108, 1)',
+                                borderWidth: 2,
+                            },
+                            {
+                                label: 'US PropTechs',
+                                data: [8, 9, 9, 4, 6],
+                                backgroundColor: 'rgba(168, 162, 158, 0.2)',
+                                borderColor: 'rgba(168, 162, 158, 1)',
+                                pointBackgroundColor: 'rgba(168, 162, 158, 1)',
+                                borderDash: [5, 5],
+                                borderWidth: 2,
+                            },
+                            {
+                                label: 'Target: TuHabi',
+                                data: [9, 9, 8, 10, 8],
+                                backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                                borderColor: 'rgba(79, 70, 229, 1)',
+                                pointBackgroundColor: 'rgba(79, 70, 229, 1)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(79, 70, 229, 1)',
+                                borderWidth: 3,
+                            }
+                        ]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: "'Inter', sans-serif", size: window.innerWidth < 768 ? 10 : 11 },
+                                    usePointStyle: true,
+                                    padding: 15
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(28, 25, 23, 0.9)',
+                                titleFont: { size: 12 },
+                                bodyFont: { size: 12 },
+                                padding: 10,
+                                cornerRadius: 4
+                            }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: { color: 'rgba(231, 229, 228, 1)' },
+                                grid: { color: 'rgba(231, 229, 228, 1)' },
+                                pointLabels: {
+                                    font: { family: "'Inter', sans-serif", size: window.innerWidth < 768 ? 9 : 11, weight: '600' },
+                                    color: '#57534e'
+                                },
+                                ticks: {
+                                    display: false,
+                                    min: 0,
+                                    max: 10
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
