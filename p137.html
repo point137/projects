@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Point 137 · Strategy that ships</title>
+<meta name="description" content="Point 137 couples senior-led strategy with hands-on execution across automation, AI, and data, to deliver impact you can measure: margin, growth, speed. In weeks, not quarters." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Point 137 · Strategy that ships" />
+<meta property="og:description" content="Senior-led strategy coupled with hands-on execution in automation, AI, and data. Outcomes you can measure." />
+<meta property="og:url" content="https://www.point137.com" />
+<meta name="theme-color" content="#0A0B0F" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --obsidian:#0A0B0F;
+  --carbon:#13151C;
+  --slate:#1B1E27;
+  --bone:#EAECF2;
+  --paper:#F3F5F9;
+  --ink:#0E0F13;
+  --mist:#8B90A0;
+  --hairline:rgba(234,236,242,0.10);
+  --hairline-strong:rgba(234,236,242,0.18);
+  --accent:#2E6BF5;
+  --accent-soft:#5E8CFF;
+  --accent-deep:#1B47C4;
+  --font-display:"Space Grotesk",system-ui,sans-serif;
+  --font-body:"Inter",system-ui,sans-serif;
+  --font-serif:"Fraunces",Georgia,serif;
+  --font-mono:"Space Mono","SF Mono",ui-monospace,monospace;
+  --container:1200px;
+  --pad-x:clamp(1.25rem,5vw,4rem);
+  --section-y:clamp(5rem,10vw,9rem);
+  --radius:10px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--obsidian);
+  color:var(--bone);
+  font-family:var(--font-body);
+  font-size:1.0625rem;
+  line-height:1.65;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+section[id]{scroll-margin-top:84px}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;line-height:1.04;letter-spacing:-0.02em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:var(--accent);color:var(--obsidian)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+.container{max-width:var(--container);margin-inline:auto;padding-inline:var(--pad-x)}
+.section{padding-block:var(--section-y);position:relative}
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:var(--obsidian);padding:.6rem 1rem;z-index:200;border-radius:0 0 8px 0;font-weight:600}
+.skip:focus{left:0}
+
+/* type utilities */
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.6rem}
+.kicker::before{content:"";width:1.6rem;height:1px;background:var(--accent);opacity:.6}
+.eyebrow{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mist)}
+h1{font-size:clamp(2.7rem,7.2vw,5.6rem)}
+h2{font-size:clamp(2rem,4.6vw,3.4rem)}
+h3{font-size:clamp(1.15rem,2vw,1.45rem);letter-spacing:-0.01em}
+.lead{font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--mist);max-width:62ch;line-height:1.6}
+.serif{font-family:var(--font-serif);font-style:italic;font-weight:400}
+.accenttext{color:var(--accent)}
+.section-head{max-width:46rem;margin-bottom:clamp(2.5rem,5vw,3.5rem)}
+.section-head h2{margin:1.1rem 0 1.1rem}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-body);font-weight:600;font-size:.98rem;padding:.92rem 1.6rem;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:transform .25s var(--ease),background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease);line-height:1}
+.btn-primary{background:var(--accent);color:var(--obsidian)}
+.btn-primary:hover{background:var(--accent-soft);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--bone);border-color:var(--hairline-strong)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.btn .arrow{transition:transform .25s var(--ease)}
+.btn:hover .arrow{transform:translate(3px,-3px)}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .3s var(--ease),border-color .3s var(--ease),backdrop-filter .3s}
+.nav.scrolled{background:rgba(10,10,12,0.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline)}
+.nav-inner{max-width:var(--container);margin-inline:auto;padding:1.05rem var(--pad-x);display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.brand{display:inline-flex;align-items:baseline;gap:.05rem;font-family:var(--font-display);font-weight:700;font-size:1.28rem;letter-spacing:-0.02em;color:var(--bone)}
+.brand .mark{font-size:.62em;color:var(--accent);transform:translateY(-0.55em);margin-left:.12em;font-weight:700}
+.brand .dim{color:var(--mist);font-weight:500}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:.92rem;color:var(--mist);font-weight:500;position:relative;transition:color .2s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-5px;height:1.5px;width:0;background:var(--accent);transition:width .25s var(--ease)}
+.nav-links a:hover{color:var(--bone)}
+.nav-links a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:1.1rem}
+.lang{display:inline-flex;border:1px solid var(--hairline-strong);border-radius:7px;overflow:hidden;font-family:var(--font-mono);font-size:.74rem}
+.lang button{background:transparent;border:0;color:var(--mist);padding:.42rem .6rem;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:.05em;transition:background .2s,color .2s}
+.lang button.active{background:var(--accent);color:var(--obsidian);font-weight:700}
+.nav .btn{padding:.7rem 1.15rem;font-size:.9rem}
+.hamburger{display:none;background:none;border:0;cursor:pointer;width:30px;height:24px;position:relative}
+.hamburger span{position:absolute;left:0;height:2px;width:100%;background:var(--bone);transition:.3s var(--ease)}
+.hamburger span:nth-child(1){top:2px}
+.hamburger span:nth-child(2){top:11px}
+.hamburger span:nth-child(3){top:20px}
+.nav.open .hamburger span:nth-child(1){top:11px;transform:rotate(45deg)}
+.nav.open .hamburger span:nth-child(2){opacity:0}
+.nav.open .hamburger span:nth-child(3){top:11px;transform:rotate(-45deg)}
+.scrollbar{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:var(--accent);z-index:120;will-change:transform}
+.nav-links a::before{content:attr(data-n);font-family:var(--font-mono);font-size:.58rem;color:var(--accent);margin-right:.42em;opacity:0;transition:opacity .25s var(--ease)}
+.nav-links a:hover::before,.nav-links a.active::before{opacity:1}
+.nav-links a.active{color:var(--bone)}
+.nav-links a.active::after{width:100%}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:6rem}
+.hero-field{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-field .glyphs{position:absolute;inset:0;margin:0;overflow:hidden;user-select:none;pointer-events:none}
+.hero-field .glyphs svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-field .base{color:rgba(234,236,242,0.05)}
+.hero-field .lit{color:var(--accent);opacity:1;-webkit-mask-image:radial-gradient(circle 180px at var(--mx,-300px) var(--my,-300px),#000 0%,rgba(0,0,0,.55) 48%,transparent 74%);mask-image:radial-gradient(circle 180px at var(--mx,-300px) var(--my,-300px),#000 0%,rgba(0,0,0,.55) 48%,transparent 74%)}
+.hero-field .lens{position:absolute;left:var(--mx,-400px);top:var(--my,-400px);width:380px;height:380px;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(46,107,245,0.16),transparent 70%);opacity:0;transition:opacity .35s var(--ease)}
+.hero-field.active .lens{opacity:1}
+.scrollcue{position:absolute;bottom:1.7rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.7rem;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mist);transition:opacity .4s var(--ease)}
+.scrollcue:hover{color:var(--bone)}
+.scrollcue .sc-line{width:1px;height:46px;background:linear-gradient(var(--accent),rgba(46,107,245,0));position:relative;overflow:hidden}
+.scrollcue .sc-line::after{content:"";position:absolute;left:0;top:-45%;width:1px;height:45%;background:var(--accent);animation:scrolldot 1.9s var(--ease) infinite}
+@keyframes scrolldot{to{top:100%}}
+body.past-hero .scrollcue{opacity:0;pointer-events:none}
+.hero-glow{position:absolute;top:38%;left:50%;width:min(900px,90vw);height:min(900px,90vw);transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(46,107,245,0.08),transparent 62%);z-index:0;pointer-events:none;filter:blur(20px)}
+.hero-inner{position:relative;z-index:2;width:100%}
+.hero h1{margin:1.6rem 0 1.6rem;max-width:16ch}
+.hero h1 .underline{position:relative;white-space:nowrap}
+.hero h1 .underline::after{content:"";position:absolute;left:0;right:0;bottom:.08em;height:.09em;background:var(--accent);border-radius:2px}
+.hero .lead{margin-bottom:2.4rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:1rem;align-items:center}
+.hero-foot{margin-top:clamp(3rem,7vw,5.5rem);font-family:var(--font-mono);font-size:.78rem;color:var(--mist);letter-spacing:.04em;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.hero-foot .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.is-visible{opacity:1;transform:none}
+[data-stagger]>*{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+[data-stagger].is-visible>*{opacity:1;transform:none}
+
+/* edge */
+.edge-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:1rem}
+.pillar{background:var(--carbon);border:1px solid var(--hairline);border-radius:var(--radius);padding:2rem 1.75rem;transition:border-color .3s var(--ease),transform .3s var(--ease),box-shadow .3s var(--ease)}
+.pillar:hover{border-color:var(--hairline-strong);transform:translateY(-4px)}
+.pillar .num{font-family:var(--font-mono);font-size:.8rem;color:var(--accent);letter-spacing:.1em}
+.pillar h3{margin:1.4rem 0 .7rem}
+.pillar p{color:var(--mist);font-size:.98rem;line-height:1.6}
+.pillar p b{color:var(--bone);font-weight:600}
+.bridge{margin-top:1.25rem;background:linear-gradient(120deg,rgba(46,107,245,0.07),rgba(46,107,245,0.05));border:1px solid var(--hairline);border-radius:var(--radius);padding:clamp(1.75rem,3.5vw,2.6rem);display:grid;grid-template-columns:auto 1fr;gap:2rem;align-items:center}
+.bridge .tag{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.bridge p{color:var(--bone);font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;max-width:60ch}
+.bridge p b{font-weight:600}
+
+/* services */
+.svc-meta{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.1em;color:var(--mist);text-transform:uppercase;margin-bottom:2.5rem}
+.svc-meta .accenttext{color:var(--accent)}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+.svc{position:relative;background:var(--carbon);border:1px solid var(--hairline);border-radius:var(--radius);padding:2.2rem 2rem;overflow:hidden;transition:border-color .35s var(--ease),transform .35s var(--ease)}
+.svc::before{content:"";position:absolute;left:0;top:0;height:100%;width:3px;background:var(--accent);transform:scaleY(0);transform-origin:top;transition:transform .4s var(--ease)}
+.svc:hover{border-color:var(--hairline-strong);transform:translateY(-4px)}
+.svc:hover::before{transform:scaleY(1)}
+.svc .idx{font-family:var(--font-mono);font-size:.82rem;color:var(--accent);letter-spacing:.1em}
+.svc h3{margin:1rem 0 .8rem;font-size:clamp(1.3rem,2.2vw,1.7rem)}
+.svc .desc{color:var(--mist);margin-bottom:1.5rem;font-size:1rem;line-height:1.6}
+.svc dl{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1.2rem;font-size:.9rem;border-top:1px solid var(--hairline);padding-top:1.3rem}
+.svc dt{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mist);padding-top:.1rem}
+.svc dd{color:var(--bone)}
+
+/* proof */
+.proof-list{display:grid;gap:1.1rem;margin-top:.5rem}
+.case{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:2.5rem;align-items:center;background:var(--carbon);border:1px solid var(--hairline);border-radius:var(--radius);padding:clamp(1.75rem,3.5vw,2.8rem);transition:border-color .3s var(--ease)}
+.case:hover{border-color:var(--hairline-strong)}
+.case .metricbig{font-family:var(--font-display);font-weight:700;font-size:clamp(3.4rem,8vw,6rem);line-height:.9;color:var(--accent);letter-spacing:-0.03em}
+.case .metriclabel{font-family:var(--font-mono);font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist);margin-top:.8rem}
+.case .sector{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.case h3{font-size:clamp(1.25rem,2vw,1.6rem);margin-bottom:.9rem}
+.case p{color:var(--mist);font-size:1rem;line-height:1.6;margin-bottom:1.3rem}
+.subm{display:flex;flex-wrap:wrap;gap:.6rem}
+.chip{font-family:var(--font-mono);font-size:.78rem;color:var(--bone);background:var(--slate);border:1px solid var(--hairline);border-radius:6px;padding:.4rem .7rem;letter-spacing:.02em}
+.chip b{color:var(--accent);font-weight:700}
+
+/* logos */
+.logos{margin-top:clamp(3rem,6vw,4.5rem);border-top:1px solid var(--hairline);padding-top:2.4rem}
+.logos-label{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mist);text-align:center;margin-bottom:1.8rem}
+.logos-marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.logos-track{display:flex;align-items:center;gap:3.2rem;width:max-content;animation:marquee 48s linear infinite}
+.logos-marquee:hover .logos-track{animation-play-state:paused}
+.logo-item{display:inline-flex;align-items:center;justify-content:center;height:36px;white-space:nowrap;cursor:default}
+.logo-item img{height:30px;width:auto;max-width:148px;object-fit:contain;filter:brightness(0) invert(1);opacity:.5;transition:opacity .3s var(--ease),filter .3s var(--ease)}
+.logo-item:hover img{filter:none;opacity:1}
+.logo-item i{display:none;font-style:normal;font-family:var(--font-display);font-weight:500;font-size:clamp(1rem,1.5vw,1.3rem);letter-spacing:.01em;color:var(--mist);opacity:.6;transition:color .3s var(--ease),opacity .3s var(--ease)}
+.logo-item.is-text i{display:inline-block}
+.logo-item.is-text:hover i{color:var(--accent);opacity:1}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* method (light) */
+.method{background:var(--bone);color:var(--ink)}
+.method .kicker{color:var(--accent-deep)}
+.method .kicker::before{background:var(--accent-deep)}
+.method h2{color:var(--ink)}
+.method .lead{color:#4a4c52}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;margin-top:1rem;counter-reset:step}
+.step{padding:1.8rem 1.5rem 1.6rem;border-top:2px solid var(--ink);position:relative}
+.step .sn{font-family:var(--font-mono);font-size:.8rem;color:var(--accent-deep);letter-spacing:.1em}
+.step h3{color:var(--ink);margin:1.1rem 0 .6rem;font-size:1.2rem}
+.step p{color:#52545b;font-size:.95rem;line-height:1.55}
+.engage{margin-top:2.6rem;display:flex;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(17,17,20,0.12);padding-top:2rem}
+.engage .em{flex:1 1 220px}
+.engage .em .t{font-family:var(--font-display);font-weight:700;font-size:1.05rem;color:var(--ink);margin-bottom:.3rem}
+.engage .em .d{font-size:.92rem;color:#52545b}
+
+/* contact */
+.contact{background:linear-gradient(180deg,var(--obsidian),#070708)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2.5rem,5vw,4.5rem)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.field{margin-bottom:1.1rem;display:flex;flex-direction:column;gap:.45rem}
+.field label{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--mist)}
+.field input,.field select,.field textarea{background:var(--carbon);border:1px solid var(--hairline-strong);border-radius:8px;padding:.85rem .9rem;color:var(--bone);font-family:var(--font-body);font-size:.98rem;transition:border-color .2s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field textarea{resize:vertical;min-height:96px}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B90A0' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
+.form-note{font-size:.82rem;color:var(--mist);margin-top:.4rem}
+.formsuccess{display:none;background:rgba(46,107,245,0.08);border:1px solid var(--accent);border-radius:var(--radius);padding:1.4rem;color:var(--bone);font-size:.98rem}
+.formsuccess.show{display:block}
+.contact-aside .ci{border-top:1px solid var(--hairline);padding:1.4rem 0}
+.contact-aside .ci .l{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);margin-bottom:.5rem}
+.contact-aside .ci a,.contact-aside .ci .v{font-size:1.15rem;color:var(--bone);font-weight:500}
+.contact-aside .ci a:hover{color:var(--accent)}
+
+/* footer */
+footer{border-top:1px solid var(--hairline);padding-block:clamp(3rem,6vw,4.5rem) 2.5rem}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;align-items:start;margin-bottom:3rem}
+.foot-brand .serif{font-family:var(--font-display);font-style:normal;font-weight:500;letter-spacing:-0.02em;font-size:clamp(1.4rem,2.6vw,2rem);color:var(--bone);line-height:1.2;display:block;margin-top:1rem;max-width:18ch}
+.foot-links{display:flex;gap:3rem;justify-content:flex-end;flex-wrap:wrap}
+.foot-col .h{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mist);margin-bottom:1rem}
+.foot-col a,.foot-col .v{display:block;color:var(--bone);font-size:.95rem;margin-bottom:.6rem;opacity:.85;transition:opacity .2s,color .2s}
+.foot-col a:hover{opacity:1;color:var(--accent)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;gap:1rem;border-top:1px solid var(--hairline);padding-top:1.8rem;flex-wrap:wrap}
+.foot-bottom .alpha{font-family:var(--font-mono);font-size:.78rem;color:var(--mist);letter-spacing:.05em}
+.foot-bottom .alpha b{color:var(--accent)}
+.foot-bottom .cr{font-family:var(--font-mono);font-size:.76rem;color:var(--mist)}
+
+/* mobile menu container */
+.mobile-menu{display:none}
+
+/* responsive */
+@media (max-width:980px){
+  .edge-grid{grid-template-columns:1fr}
+  .svc-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .case{grid-template-columns:1fr;gap:1.6rem}
+  .contact-grid{grid-template-columns:1fr}
+  .bridge{grid-template-columns:1fr;gap:1.1rem}
+  .foot-top{grid-template-columns:1fr}
+  .foot-links{justify-content:flex-start}
+}
+@media (max-width:760px){
+  .nav-links,.nav-right .btn{display:none}
+  .hamburger{display:block}
+  .nav.open{background:rgba(10,10,12,0.96);backdrop-filter:blur(16px)}
+  .mobile-menu{display:block;max-height:0;overflow:hidden;transition:max-height .4s var(--ease);background:rgba(10,10,12,0.98)}
+  .nav.open .mobile-menu{max-height:420px;border-top:1px solid var(--hairline)}
+  .mobile-menu .mm-inner{padding:1.2rem var(--pad-x) 2rem;display:flex;flex-direction:column;gap:1.3rem}
+  .mobile-menu a{color:var(--bone);font-size:1.1rem;font-family:var(--font-display);font-weight:500}
+  .mobile-menu .btn{justify-content:center;margin-top:.5rem}
+  .form-row{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+  .foot-bottom{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal,[data-stagger]>*{opacity:1!important;transform:none!important;transition:none!important}
+  .hero-field .lit,.hero-field .lens{display:none}
+  .hero-glow{opacity:.6}
+  .logos-track{animation:none;flex-wrap:wrap;justify-content:center;width:auto;gap:1.4rem 2.4rem}
+  *{animation:none!important}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip" data-en="Skip to content" data-es="Saltar al contenido">Skip to content</a>
+<div class="scrollbar" id="scrollbar" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand" aria-label="Point 137 home">point&nbsp;13<span>7</span><span class="mark">α</span></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#edge" data-n="01" data-en="Edge" data-es="Ventaja">Edge</a>
+      <a href="#services" data-n="02" data-en="Services" data-es="Servicios">Services</a>
+      <a href="#proof" data-n="03" data-en="Proof" data-es="Resultados">Proof</a>
+      <a href="#method" data-n="04" data-en="Approach" data-es="Método">Approach</a>
+      <a href="#contact" data-n="05" data-en="Contact" data-es="Contacto">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="en" class="active" aria-pressed="true">EN</button>
+        <button data-lang="es" aria-pressed="false">ES</button>
+      </div>
+      <a href="#contact" class="btn btn-primary" data-en="Book a call" data-es="Agenda una llamada">Book a call</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mm-inner">
+      <a href="#edge" data-en="Edge" data-es="Ventaja">Edge</a>
+      <a href="#services" data-en="Services" data-es="Servicios">Services</a>
+      <a href="#proof" data-en="Proof" data-es="Resultados">Proof</a>
+      <a href="#method" data-en="Approach" data-es="Método">Approach</a>
+      <a href="#contact" data-en="Contact" data-es="Contacto">Contact</a>
+      <a href="#contact" class="btn btn-primary" data-en="Book a discovery call" data-es="Agenda una llamada">Book a discovery call</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<span id="top"></span>
+
+<!-- HERO -->
+<section class="hero" aria-label="Intro">
+  <div class="hero-field" id="heroField" aria-hidden="true">
+    <div class="glyphs base" id="glyphBase"></div>
+    <div class="glyphs lit" id="glyphLit"></div>
+    <span class="lens" id="lens"></span>
+  </div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <span class="kicker reveal" data-en="Strategy · Product · AI-driven execution" data-es="Estrategia · Producto · Ejecución con IA">Strategy · Product · AI-driven execution</span>
+    <h1 class="reveal" data-en='Strategy that <span class="underline">ships.</span>' data-es='Estrategia que <span class="underline">se ejecuta.</span>'>Strategy that <span class="underline">ships.</span></h1>
+    <p class="lead reveal" data-en="Point 137 couples senior-led strategy with hands-on execution across automation, AI, and data. The result: impact you can measure. Margin. Growth. Speed. In weeks, not quarters." data-es="Point 137 acopla estrategia liderada por seniors con ejecución real en automatización, IA y datos. El resultado: impacto que puedes medir. Margen. Crecimiento. Velocidad. En semanas, no trimestres.">Point 137 couples senior-led strategy with hands-on execution across automation, AI, and data. The result: impact you can measure. Margin. Growth. Speed. In weeks, not quarters.</p>
+    <div class="hero-cta reveal">
+      <a href="#contact" class="btn btn-primary" data-en="Book a discovery call" data-es="Agenda una llamada">Book a discovery call <span class="arrow">↗</span></a>
+      <a href="#proof" class="btn btn-ghost" data-en="See the proof" data-es="Ver resultados">See the proof</a>
+    </div>
+    <div class="hero-foot reveal">
+      <span class="dot" aria-hidden="true"></span>
+      <span data-en="α ≈ 1 / 137.036. The constant that couples light and matter." data-es="α ≈ 1 / 137.036. La constante que acopla luz y materia.">α ≈ 1 / 137.036. The constant that couples light and matter.</span>
+    </div>
+  </div>
+  <a class="scrollcue" href="#edge" aria-label="Scroll to explore">
+    <span class="sc-label" data-en="Scroll" data-es="Desliza">Scroll</span>
+    <span class="sc-line"></span>
+  </a>
+</section>
+
+<!-- EDGE -->
+<section class="section" id="edge" aria-labelledby="edge-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker" data-en="The edge" data-es="La ventaja">The edge</span>
+      <h2 id="edge-h" data-en="Most firms give you half the equation." data-es="La mayoría te da media ecuación.">Most firms give you half the equation.</h2>
+      <p class="lead" data-en="Strategists hand over slides. Builders work without a thesis. We do both, and we're measured on what actually moves." data-es="Los estrategas entregan presentaciones. Los que construyen trabajan sin tesis. Nosotros hacemos ambas, y nos miden por lo que realmente se mueve.">Strategists hand over slides. Builders work without a thesis. We do both, and we're measured on what actually moves.</p>
+    </div>
+    <div class="edge-grid" data-stagger>
+      <article class="pillar">
+        <span class="num">01</span>
+        <h3 data-en="Velocity &amp; validation" data-es="Velocidad y validación">Velocity &amp; validation</h3>
+        <p data-en="We build testable pilots fast and validate the bet before you commit serious budget. Weeks, not quarters." data-es="Construimos pilotos comprobables rápido y validamos la apuesta antes de que comprometas presupuesto serio. Semanas, no trimestres.">We build testable pilots fast and validate the bet before you commit serious budget. Weeks, not quarters.</p>
+      </article>
+      <article class="pillar">
+        <span class="num">02</span>
+        <h3 data-en="Senior expertise, AI-amplified" data-es="Expertise senior, amplificado con IA">Senior expertise, AI-amplified</h3>
+        <p data-en="The senior who designs the strategy runs it, now amplified by AI-enabled processes. Seasoned judgment <b>and</b> machine speed, the best of both worlds." data-es="El senior que diseña la estrategia la ejecuta, ahora amplificado con procesos habilitados por IA. Criterio experimentado <b>y</b> velocidad de máquina, lo mejor de dos mundos.">The senior who designs the strategy runs it, now amplified by AI-enabled processes. Seasoned judgment <b>and</b> machine speed, the best of both worlds.</p>
+      </article>
+      <article class="pillar">
+        <span class="num">03</span>
+        <h3 data-en="Outcomes over outputs" data-es="Resultados, no entregables">Outcomes over outputs</h3>
+        <p data-en="We're measured in margin, revenue, retention, and speed. Not in decks delivered." data-es="Nos miden en margen, ingresos, retención y velocidad. No en presentaciones entregadas.">We're measured in margin, revenue, retention, and speed. Not in decks delivered.</p>
+      </article>
+    </div>
+    <div class="bridge reveal">
+      <span class="tag" data-en="The LATAM ↔ US bridge" data-es="El puente LATAM ↔ EE.UU.">The LATAM ↔ US bridge</span>
+      <p data-en="Built on fifteen years scaling operations, SaaS, and marketplaces across North America and Latin America. Problems forged in volatile markets, solved with operational rigor, and <b>applicable on both sides of the border.</b>" data-es="Construido sobre quince años escalando operaciones, SaaS y marketplaces en Norteamérica y Latinoamérica. Problemas forjados en mercados volátiles, resueltos con rigor operativo, y <b>aplicables a ambos lados de la frontera.</b>">Built on fifteen years scaling operations, SaaS, and marketplaces across North America and Latin America. Problems forged in volatile markets, solved with operational rigor, and <b>applicable on both sides of the border.</b></p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services" aria-labelledby="svc-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker" data-en="What we do" data-es="Qué hacemos">What we do</span>
+      <h2 id="svc-h" data-en="Four ways we turn strategy into outcomes." data-es="Cuatro formas de convertir estrategia en resultados.">Four ways we turn strategy into outcomes.</h2>
+    </div>
+    <p class="svc-meta reveal" data-en='The arc: <span class="accenttext">Foundation → Build → Measure → Scale</span>' data-es='El arco: <span class="accenttext">Fundamento → Construcción → Medición → Escala</span>'>The arc: <span class="accenttext">Foundation → Build → Measure → Scale</span></p>
+    <div class="svc-grid" data-stagger>
+      <article class="svc">
+        <span class="idx">01 · Foundation</span>
+        <h3 data-en="Strategy &amp; Validation Sprints" data-es="Sprints de Estrategia y Validación">Strategy &amp; Validation Sprints</h3>
+        <p class="desc" data-en="From your hardest business problem to a validated, prioritized, ready-to-execute roadmap. Product strategy, go-to-market, pricing, and market entry." data-es="De tu problema más difícil a un roadmap validado, priorizado y listo para ejecutar. Estrategia de producto, go-to-market, pricing y entrada a mercado.">From your hardest business problem to a validated, prioritized, ready-to-execute roadmap. Product strategy, go-to-market, pricing, and market entry.</p>
+        <dl>
+          <dt data-en="Deliverables" data-es="Entregables">Deliverables</dt><dd data-en="Opportunity diagnosis · prioritized roadmap · business case + KPIs · validated proof-of-concept" data-es="Diagnóstico de oportunidad · roadmap priorizado · business case + KPIs · prueba de concepto validada">Opportunity diagnosis · prioritized roadmap · business case + KPIs · validated proof-of-concept</dd>
+          <dt data-en="Format" data-es="Formato">Format</dt><dd data-en="2-4 weeks · fixed price" data-es="2-4 semanas · precio fijo">2-4 weeks · fixed price</dd>
+          <dt data-en="Ideal for" data-es="Ideal para">Ideal for</dt><dd data-en="Founders, GMs, ops &amp; strategy heads" data-es="Fundadores, GMs, líderes de operaciones y estrategia">Founders, GMs, ops &amp; strategy heads</dd>
+        </dl>
+      </article>
+      <article class="svc">
+        <span class="idx">02 · Build</span>
+        <h3 data-en="AI &amp; Automation Enablement" data-es="Automatización e IA">AI &amp; Automation Enablement</h3>
+        <p class="desc" data-en="Identify and implement the automation and AI that cut cost, kill busywork, and speed up decisions." data-es="Identificamos e implementamos la automatización e IA que reducen costos, eliminan trabajo repetitivo y aceleran decisiones.">Identify and implement the automation and AI that cut cost, kill busywork, and speed up decisions.</p>
+        <dl>
+          <dt data-en="Deliverables" data-es="Entregables">Deliverables</dt><dd data-en="Automation/AI opportunity map · implemented workflows &amp; agents · ROI tracking" data-es="Mapa de oportunidades de automatización/IA · flujos y agentes implementados · seguimiento de ROI">Automation/AI opportunity map · implemented workflows &amp; agents · ROI tracking</dd>
+          <dt data-en="Format" data-es="Formato">Format</dt><dd data-en="Audit + implementation" data-es="Auditoría + implementación">Audit + implementation</dd>
+          <dt data-en="Ideal for" data-es="Ideal para">Ideal for</dt><dd data-en="Lean teams with big goals; ops-heavy businesses" data-es="Equipos pequeños con grandes metas; negocios intensivos en operación">Lean teams with big goals; ops-heavy businesses</dd>
+        </dl>
+      </article>
+      <article class="svc">
+        <span class="idx">03 · Measure</span>
+        <h3 data-en="Data &amp; Decision Systems" data-es="Datos y Sistemas de Decisión">Data &amp; Decision Systems</h3>
+        <p class="desc" data-en="Turn scattered data into dashboards and decision systems that actually drive execution across P&amp;L, ops, supply chain, and GTM." data-es="Convertimos datos dispersos en dashboards y sistemas de decisión que realmente impulsan la ejecución en P&amp;L, operaciones, cadena de suministro y GTM.">Turn scattered data into dashboards and decision systems that actually drive execution across P&amp;L, ops, supply chain, and GTM.</p>
+        <dl>
+          <dt data-en="Deliverables" data-es="Entregables">Deliverables</dt><dd data-en="KPI architecture · BI dashboards · cost-to-serve &amp; unit-economics models" data-es="Arquitectura de KPIs · dashboards de BI · modelos de cost-to-serve y unit economics">KPI architecture · BI dashboards · cost-to-serve &amp; unit-economics models</dd>
+          <dt data-en="Format" data-es="Formato">Format</dt><dd data-en="Project-based or packaged" data-es="Por proyecto o paquete">Project-based or packaged</dd>
+          <dt data-en="Ideal for" data-es="Ideal para">Ideal for</dt><dd data-en="Scale-ups and SMEs" data-es="Scale-ups y PyMEs">Scale-ups and SMEs</dd>
+        </dl>
+      </article>
+      <article class="svc">
+        <span class="idx">04 · Scale</span>
+        <h3 data-en="Growth &amp; Transformation" data-es="Crecimiento y Transformación">Growth &amp; Transformation</h3>
+        <p class="desc" data-en="The bigger bets: cost-reduction programs, operational turnarounds, P&amp;L restructuring, tech-enabled transformation." data-es="Las apuestas grandes: programas de reducción de costos, turnarounds operativos, reestructuración de P&amp;L, transformación habilitada por tecnología.">The bigger bets: cost-reduction programs, operational turnarounds, P&amp;L restructuring, tech-enabled transformation.</p>
+        <dl>
+          <dt data-en="Deliverables" data-es="Entregables">Deliverables</dt><dd data-en="Transformation plan · target operating model · change management · results tracking" data-es="Plan de transformación · modelo operativo objetivo · gestión del cambio · seguimiento de resultados">Transformation plan · target operating model · change management · results tracking</dd>
+          <dt data-en="Format" data-es="Formato">Format</dt><dd data-en="Custom proposal" data-es="Propuesta a medida">Custom proposal</dd>
+          <dt data-en="Ideal for" data-es="Ideal para">Ideal for</dt><dd data-en="Leadership teams &amp; business-unit heads" data-es="Equipos directivos y líderes de unidad de negocio">Leadership teams &amp; business-unit heads</dd>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="section" id="proof" aria-labelledby="proof-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker" data-en="Proof" data-es="Resultados">Proof</span>
+      <h2 id="proof-h" data-en="Proof beats promises." data-es="Los resultados hablan.">Proof beats promises.</h2>
+      <p class="lead" data-en="Selected results from 15 years leading strategy, product, and operations." data-es="Resultados seleccionados de 15 años liderando estrategia, producto y operaciones.">Selected results from 15 years leading strategy, product, and operations.</p>
+    </div>
+    <div class="proof-list">
+
+      <article class="case reveal" data-counter>
+        <div class="case-metric">
+          <div class="metricbig"><span data-count="65" data-pre="+" data-suf="pp">+65pp</span></div>
+          <div class="metriclabel" data-en="Gross margin · 1 year" data-es="Margen bruto · 1 año">Gross margin · 1 year</div>
+        </div>
+        <div class="case-body">
+          <div class="sector" data-en="Last-mile logistics" data-es="Logística de última milla">Last-mile logistics</div>
+          <h3 data-en="Restructured a vertical, scaled a network profitably." data-es="Reestructuramos una vertical y escalamos una red con rentabilidad.">Restructured a vertical, scaled a network profitably.</h3>
+          <p data-en="Rebuilt a cash-on-delivery operating model and designed the partner-delivery expansion that scaled a parcel unit profitably across 70+ cities." data-es="Reconstruimos el modelo operativo de pago contra entrega y diseñamos la expansión de entrega por partners que escaló con rentabilidad una unidad de paquetería en más de 70 ciudades.">Rebuilt a cash-on-delivery operating model and designed the partner-delivery expansion that scaled a parcel unit profitably across 70+ cities.</p>
+          <div class="subm">
+            <span class="chip"><b>+11pp</b>&nbsp;<span data-en="EBIT · 3 mo" data-es="EBIT · 3 meses">EBIT · 3 mo</span></span>
+            <span class="chip"><b>1.5×</b>&nbsp;<span data-en="revenue · 70+ cities" data-es="ingresos · 70+ ciudades">revenue · 70+ cities</span></span>
+            <span class="chip"><b>+15pp</b>&nbsp;<span data-en="delivery success" data-es="éxito de entrega">delivery success</span></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="case reveal" data-counter>
+        <div class="case-metric">
+          <div class="metricbig"><span data-count="600" data-suf="+">600+</span></div>
+          <div class="metriclabel" data-en="Enterprise partnerships" data-es="Alianzas enterprise">Enterprise partnerships</div>
+        </div>
+        <div class="case-body">
+          <div class="sector" data-en="Proptech marketplace" data-es="Marketplace proptech">Proptech marketplace</div>
+          <h3 data-en="Launched a B2B product and the GTM to scale it." data-es="Lanzamos un producto B2B y el GTM para escalarlo.">Launched a B2B product and the GTM to scale it.</h3>
+          <p data-en="Built and launched a B2B product for a high-growth real-estate marketplace, then ran the go-to-market that expanded key accounts and crushed churn." data-es="Construimos y lanzamos un producto B2B para un marketplace inmobiliario de alto crecimiento, y dirigimos el go-to-market que expandió cuentas clave y redujo el churn al mínimo.">Built and launched a B2B product for a high-growth real-estate marketplace, then ran the go-to-market that expanded key accounts and crushed churn.</p>
+          <div class="subm">
+            <span class="chip"><b>+12%</b>&nbsp;<span data-en="quarterly revenue" data-es="ingresos trimestrales">quarterly revenue</span></span>
+            <span class="chip"><b>&lt;1%</b>&nbsp;churn</span>
+            <span class="chip" data-en="GTM from zero" data-es="GTM desde cero">GTM from zero</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="case reveal" data-counter>
+        <div class="case-metric">
+          <div class="metricbig"><span data-count="3" data-suf="×">3×</span></div>
+          <div class="metriclabel" data-en="Revenue · under 3 years" data-es="Ingresos · menos de 3 años">Revenue · under 3 years</div>
+        </div>
+        <div class="case-body">
+          <div class="sector" data-en="Enterprise SaaS" data-es="SaaS enterprise">Enterprise SaaS</div>
+          <h3 data-en="Pivoted a services business into a SaaS engine." data-es="Convertimos un negocio de servicios en un motor SaaS.">Pivoted a services business into a SaaS engine.</h3>
+          <p data-en="Led a services-to-SaaS pivot: market analysis, product positioning, and the PMO and governance to deliver across multiple countries." data-es="Lideramos el pivote de servicios a SaaS: análisis de mercado, posicionamiento de producto y la PMO y el gobierno para entregar en múltiples países.">Led a services-to-SaaS pivot: market analysis, product positioning, and the PMO and governance to deliver across multiple countries.</p>
+          <div class="subm">
+            <span class="chip" data-en="Multi-country delivery" data-es="Entrega multi-país">Multi-country delivery</span>
+            <span class="chip" data-en="New pricing model" data-es="Nuevo modelo de pricing">New pricing model</span>
+            <span class="chip" data-en="PMO + governance" data-es="PMO + gobierno">PMO + governance</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="case reveal" data-counter>
+        <div class="case-metric">
+          <div class="metricbig"><span data-count="20" data-pre="+" data-suf="pp">+20pp</span></div>
+          <div class="metriclabel" data-en="Gross margin · 6 months" data-es="Margen bruto · 6 meses">Gross margin · 6 months</div>
+        </div>
+        <div class="case-body">
+          <div class="sector" data-en="Early-stage startup" data-es="Startup en etapa temprana">Early-stage startup</div>
+          <h3 data-en="From negative margin to durable profitability." data-es="De margen negativo a rentabilidad duradera.">From negative margin to durable profitability.</h3>
+          <p data-en="Took an early-stage startup from negative gross margin to durable profitability, pairing strategy with hands-on operational execution." data-es="Llevamos una startup en etapa temprana de margen bruto negativo a rentabilidad duradera, combinando estrategia con ejecución operativa real.">Took an early-stage startup from negative gross margin to durable profitability, pairing strategy with hands-on operational execution.</p>
+          <div class="subm">
+            <span class="chip"><b>-15pp → +10pp</b>&nbsp;<span data-en="· 3 mo" data-es="· 3 meses">· 3 mo</span></span>
+            <span class="chip"><b>+20pp</b>&nbsp;<span data-en="sustained · 6 mo" data-es="sostenido · 6 meses">sustained · 6 mo</span></span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="logos reveal">
+      <p class="logos-label" data-en="Experience spanning leading institutions" data-es="Experiencia en instituciones líderes">Experience spanning leading institutions</p>
+      <div class="logos-marquee" aria-hidden="true">
+        <div class="logos-track">
+          <span class="logo-item"><img src="https://logo.clearbit.com/bbva.com" alt="BBVA" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>BBVA</i></span><span class="logo-item"><img src="https://logo.clearbit.com/santander.com" alt="Santander" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Santander</i></span><span class="logo-item"><img src="https://logo.clearbit.com/scotiabank.com" alt="Scotiabank" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Scotiabank</i></span><span class="logo-item"><img src="https://logo.clearbit.com/banorte.com" alt="Banorte" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Banorte</i></span><span class="logo-item"><img src="https://logo.clearbit.com/millwardbrown.com" alt="Millward Brown" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Millward Brown</i></span><span class="logo-item"><img src="https://logo.clearbit.com/ford.com" alt="Ford" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Ford</i></span><span class="logo-item"><img src="https://logo.clearbit.com/faurecia.com" alt="Faurecia" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Faurecia</i></span><span class="logo-item"><img src="https://logo.clearbit.com/bansefi.gob.mx" alt="Bansefi" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Bansefi</i></span><span class="logo-item"><img src="https://logo.clearbit.com/infonavit.org.mx" alt="Infonavit" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Infonavit</i></span><span class="logo-item"><img src="https://logo.clearbit.com/sagarpa.gob.mx" alt="SAGARPA" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SAGARPA</i></span><span class="logo-item"><img src="https://logo.clearbit.com/sat.gob.mx" alt="SAT" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SAT</i></span><span class="logo-item"><img src="https://logo.clearbit.com/shf.com.mx" alt="SHF" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SHF</i></span><span class="logo-item"><img src="https://logo.clearbit.com/amafore.org.mx" alt="AMAFORE" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>AMAFORE</i></span><span class="logo-item"><img src="https://logo.clearbit.com/actinver.com" alt="Actinver" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Actinver</i></span><span class="logo-item"><img src="https://logo.clearbit.com/pip.com.mx" alt="PiP" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>PiP</i></span><span class="logo-item"><img src="https://logo.clearbit.com/citi.com" alt="Citi" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Citi</i></span><span class="logo-item"><img src="https://logo.clearbit.com/ibm.com" alt="IBM" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>IBM</i></span>
+          <span class="logo-item"><img src="https://logo.clearbit.com/bbva.com" alt="BBVA" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>BBVA</i></span><span class="logo-item"><img src="https://logo.clearbit.com/santander.com" alt="Santander" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Santander</i></span><span class="logo-item"><img src="https://logo.clearbit.com/scotiabank.com" alt="Scotiabank" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Scotiabank</i></span><span class="logo-item"><img src="https://logo.clearbit.com/banorte.com" alt="Banorte" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Banorte</i></span><span class="logo-item"><img src="https://logo.clearbit.com/millwardbrown.com" alt="Millward Brown" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Millward Brown</i></span><span class="logo-item"><img src="https://logo.clearbit.com/ford.com" alt="Ford" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Ford</i></span><span class="logo-item"><img src="https://logo.clearbit.com/faurecia.com" alt="Faurecia" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Faurecia</i></span><span class="logo-item"><img src="https://logo.clearbit.com/bansefi.gob.mx" alt="Bansefi" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Bansefi</i></span><span class="logo-item"><img src="https://logo.clearbit.com/infonavit.org.mx" alt="Infonavit" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Infonavit</i></span><span class="logo-item"><img src="https://logo.clearbit.com/sagarpa.gob.mx" alt="SAGARPA" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SAGARPA</i></span><span class="logo-item"><img src="https://logo.clearbit.com/sat.gob.mx" alt="SAT" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SAT</i></span><span class="logo-item"><img src="https://logo.clearbit.com/shf.com.mx" alt="SHF" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SHF</i></span><span class="logo-item"><img src="https://logo.clearbit.com/amafore.org.mx" alt="AMAFORE" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>AMAFORE</i></span><span class="logo-item"><img src="https://logo.clearbit.com/actinver.com" alt="Actinver" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Actinver</i></span><span class="logo-item"><img src="https://logo.clearbit.com/pip.com.mx" alt="PiP" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>PiP</i></span><span class="logo-item"><img src="https://logo.clearbit.com/citi.com" alt="Citi" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Citi</i></span><span class="logo-item"><img src="https://logo.clearbit.com/ibm.com" alt="IBM" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>IBM</i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="section method" id="method" aria-labelledby="method-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker" data-en="How we work" data-es="Cómo trabajamos">How we work</span>
+      <h2 id="method-h" data-en="A method built to de-risk the bet." data-es="Un método para reducir el riesgo de la apuesta.">A method built to de-risk the bet.</h2>
+      <p class="lead" data-en="Time-boxed, senior-led, and pointed at one number that matters." data-es="Acotado en tiempo, liderado por seniors y apuntado a un número que importa.">Time-boxed, senior-led, and pointed at one number that matters.</p>
+    </div>
+    <div class="steps" data-stagger>
+      <div class="step">
+        <span class="sn">01</span>
+        <h3 data-en="Understand" data-es="Entender">Understand</h3>
+        <p data-en="Get the real context. Surface the assumptions no one says out loud." data-es="Conseguir el contexto real. Sacar a la luz los supuestos que nadie dice.">Get the real context. Surface the assumptions no one says out loud.</p>
+      </div>
+      <div class="step">
+        <span class="sn">02</span>
+        <h3 data-en="Validate" data-es="Validar">Validate</h3>
+        <p data-en="Build a testable artifact (pilot, model, or prototype) and put it in front of reality." data-es="Construir un artefacto comprobable (piloto, modelo o prototipo) y ponerlo frente a la realidad.">Build a testable artifact (pilot, model, or prototype) and put it in front of reality.</p>
+      </div>
+      <div class="step">
+        <span class="sn">03</span>
+        <h3 data-en="Build" data-es="Construir">Build</h3>
+        <p data-en="Implement what works: automation, AI, dashboards, operating model." data-es="Implementar lo que funciona: automatización, IA, dashboards, modelo operativo.">Implement what works: automation, AI, dashboards, operating model.</p>
+      </div>
+      <div class="step">
+        <span class="sn">04</span>
+        <h3 data-en="Measure" data-es="Medir">Measure</h3>
+        <p data-en="Track the number that matters, then hand you a team that can run it without us." data-es="Medir el número que importa, y dejarte un equipo que pueda operarlo sin nosotros.">Track the number that matters, then hand you a team that can run it without us.</p>
+      </div>
+    </div>
+    <div class="engage reveal">
+      <div class="em"><div class="t" data-en="Sprint" data-es="Sprint">Sprint</div><div class="d" data-en="Fixed fee, 2-4 weeks. Low barrier, high certainty." data-es="Precio fijo, 2-4 semanas. Bajo riesgo, alta certeza.">Fixed fee, 2-4 weeks. Low barrier, high certainty.</div></div>
+      <div class="em"><div class="t" data-en="Program" data-es="Programa">Program</div><div class="d" data-en="Value-based pricing for design &amp; build phases." data-es="Pricing basado en valor para fases de diseño y construcción.">Value-based pricing for design &amp; build phases.</div></div>
+      <div class="em"><div class="t" data-en="Embedded pod" data-es="Pod embebido">Embedded pod</div><div class="d" data-en="Monthly access to a senior cross-functional team." data-es="Acceso mensual a un equipo senior multidisciplinario.">Monthly access to a senior cross-functional team.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact" aria-labelledby="contact-h">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <span class="kicker" data-en="Let's talk" data-es="Hablemos">Let's talk</span>
+        <h2 id="contact-h" data-en="Tell us the bet. We'll tell you how fast you can move." data-es="Cuéntanos la apuesta. Te decimos qué tan rápido puedes avanzar." style="margin:1.1rem 0 2rem">Tell us the bet. We'll tell you how fast you can move.</h2>
+        <form id="leadForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-name" data-en="Name" data-es="Nombre">Name</label>
+              <input id="f-name" name="name" type="text" required autocomplete="name" data-en-ph="Your name" data-es-ph="Tu nombre" placeholder="Your name">
+            </div>
+            <div class="field">
+              <label for="f-email" data-en="Email" data-es="Correo">Email</label>
+              <input id="f-email" name="email" type="email" required autocomplete="email" data-en-ph="you@company.com" data-es-ph="tu@empresa.com" placeholder="you@company.com">
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-company" data-en="Company" data-es="Empresa">Company</label>
+            <input id="f-company" name="company" type="text" autocomplete="organization" data-en-ph="Company name" data-es-ph="Nombre de la empresa" placeholder="Company name">
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-need" data-en="What do you need?" data-es="¿Qué necesitas?">What do you need?</label>
+              <select id="f-need" name="need">
+                <option value="" disabled selected data-en="Select…" data-es="Selecciona…">Select…</option>
+                <option value="Strategy &amp; Validation Sprint" data-en="Strategy &amp; Validation Sprint" data-es="Sprint de Estrategia y Validación">Strategy &amp; Validation Sprint</option>
+                <option value="AI &amp; Automation" data-en="AI &amp; Automation" data-es="Automatización e IA">AI &amp; Automation</option>
+                <option value="Data &amp; Decision Systems" data-en="Data &amp; Decision Systems" data-es="Datos y Sistemas de Decisión">Data &amp; Decision Systems</option>
+                <option value="Growth &amp; Transformation" data-en="Growth &amp; Transformation" data-es="Crecimiento y Transformación">Growth &amp; Transformation</option>
+                <option value="Not sure yet" data-en="Not sure yet" data-es="Aún no estoy seguro">Not sure yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-budget" data-en="Budget range" data-es="Presupuesto">Budget range</label>
+              <select id="f-budget" name="budget">
+                <option value="" disabled selected data-en="Select…" data-es="Selecciona…">Select…</option>
+                <option value="Under $10k" data-en="Under $10k" data-es="Menos de $10k">Under $10k</option>
+                <option value="$10k-$25k">$10k-$25k</option>
+                <option value="$25k-$50k">$25k-$50k</option>
+                <option value="$50k+">$50k+</option>
+                <option value="Not sure" data-en="Not sure" data-es="No estoy seguro">Not sure</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-timeline" data-en="Timeline" data-es="Tiempos">Timeline</label>
+            <select id="f-timeline" name="timeline">
+              <option value="" disabled selected data-en="Select…" data-es="Selecciona…">Select…</option>
+              <option value="ASAP" data-en="ASAP" data-es="Lo antes posible">ASAP</option>
+              <option value="1-3 months" data-en="1-3 months" data-es="1-3 meses">1-3 months</option>
+              <option value="Just exploring" data-en="Just exploring" data-es="Solo explorando">Just exploring</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-message" data-en="The bet, in a sentence" data-es="La apuesta, en una frase">The bet, in a sentence</label>
+            <textarea id="f-message" name="message" data-en-ph="What's the problem worth solving?" data-es-ph="¿Cuál es el problema que vale la pena resolver?" placeholder="What's the problem worth solving?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" data-en="Book a discovery call" data-es="Agenda una llamada">Book a discovery call <span class="arrow">↗</span></button>
+          <p class="form-note" data-en="Opens your email client, pre-filled. Prefer direct? hello@point137.com" data-es="Abre tu cliente de correo, pre-llenado. ¿Prefieres directo? hello@point137.com">Opens your email client, pre-filled. Prefer direct? hello@point137.com</p>
+        </form>
+        <div class="formsuccess" id="formSuccess" data-en="Thanks. Your email draft is ready to send. We reply within one business day." data-es="Gracias. Tu borrador de correo está listo para enviar. Respondemos en un día hábil.">Thanks. Your email draft is ready to send. We reply within one business day.</div>
+      </div>
+      <aside class="contact-aside">
+        <div class="ci">
+          <div class="l" data-en="Email" data-es="Correo">Email</div>
+          <a href="mailto:hello@point137.com">hello@point137.com</a>
+        </div>
+        <div class="ci">
+          <div class="l" data-en="Phone" data-es="Teléfono">Phone</div>
+          <a href="tel:+13052096127">+1 (305) 209-6127</a>
+        </div>
+        <div class="ci">
+          <div class="l" data-en="Location" data-es="Ubicación">Location</div>
+          <span class="v">78 SW 7th Street<br>Miami, FL 33130</span>
+        </div>
+        <div class="ci">
+          <div class="l" data-en="Languages" data-es="Idiomas">Languages</div>
+          <span class="v">English · Español</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a href="#top" class="brand" aria-label="Point 137">point&nbsp;13<span>7</span><span class="mark">α</span></a>
+        <span class="serif" data-en="The fine structure of growth." data-es="La estructura fina del crecimiento.">The fine structure of growth.</span>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <div class="h" data-en="Navigate" data-es="Navegar">Navigate</div>
+          <a href="#edge" data-en="The edge" data-es="La ventaja">The edge</a>
+          <a href="#services" data-en="Services" data-es="Servicios">Services</a>
+          <a href="#proof" data-en="Proof" data-es="Resultados">Proof</a>
+          <a href="#method" data-en="Approach" data-es="Método">Approach</a>
+        </div>
+        <div class="foot-col">
+          <div class="h" data-en="Contact" data-es="Contacto">Contact</div>
+          <a href="mailto:hello@point137.com">hello@point137.com</a>
+          <a href="tel:+13052096127">+1 (305) 209-6127</a>
+          <a href="https://maps.app.goo.gl/N3QUqMhAXj6afBNeA" target="_blank" rel="noopener" class="v">78 SW 7th Street<br>Miami, FL 33130</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span class="alpha">α = 1 / <b>137</b>.035999</span>
+      <span class="cr">© 2026 Point 137 Inc. <span data-en="All rights reserved." data-es="Todos los derechos reservados.">All rights reserved.</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var docEl=document.documentElement;
+  var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+  /* ---------- i18n via data-en / data-es ---------- */
+  function applyLang(lang){
+    docEl.setAttribute("lang",lang);
+    document.querySelectorAll("[data-en]").forEach(function(el){
+      var val=el.getAttribute("data-"+lang);
+      if(val!=null) el.innerHTML=val;
+    });
+    document.querySelectorAll("[data-en-ph]").forEach(function(el){
+      var val=el.getAttribute("data-"+lang+"-ph");
+      if(val!=null) el.setAttribute("placeholder",val);
+    });
+    document.querySelectorAll(".lang button").forEach(function(b){
+      var on=b.getAttribute("data-lang")===lang;
+      b.classList.toggle("active",on);
+      b.setAttribute("aria-pressed",on?"true":"false");
+    });
+    document.title = lang==="es" ? "Point 137 · Estrategia que se ejecuta" : "Point 137 · Strategy that ships";
+    store.set("p137_lang",lang);
+  }
+  document.querySelectorAll(".lang button").forEach(function(b){
+    b.addEventListener("click",function(){applyLang(b.getAttribute("data-lang"))});
+  });
+  var saved=store.get("p137_lang");
+  applyLang(saved==="es"||saved==="en"?saved:"en");
+
+  /* ---------- nav scrolled state ---------- */
+  var nav=document.getElementById("nav");
+  function onScroll(){ nav.classList.toggle("scrolled",window.scrollY>24); }
+  onScroll(); window.addEventListener("scroll",onScroll,{passive:true});
+
+  /* ---------- mobile menu ---------- */
+  var burger=document.getElementById("hamburger");
+  burger.addEventListener("click",function(){
+    var open=nav.classList.toggle("open");
+    burger.setAttribute("aria-expanded",open?"true":"false");
+  });
+  document.querySelectorAll("#mobileMenu a").forEach(function(a){
+    a.addEventListener("click",function(){nav.classList.remove("open");burger.setAttribute("aria-expanded","false")});
+  });
+
+  /* ---------- reveal on scroll ---------- */
+  var reduce=window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  if(!reduce && "IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var el=e.target;
+          if(el.matches("[data-stagger]")){
+            Array.prototype.forEach.call(el.children,function(k,i){ k.style.transitionDelay=(i*0.08)+"s"; });
+          }
+          el.classList.add("is-visible");
+          io.unobserve(el);
+          if(el.dataset.counter!==undefined) runCounters(el);
+        }
+      });
+    },{threshold:0.16,rootMargin:"0px 0px -8% 0px"});
+    document.querySelectorAll(".reveal,[data-stagger]").forEach(function(el){io.observe(el)});
+  } else {
+    document.querySelectorAll(".reveal,[data-stagger]").forEach(function(el){el.classList.add("is-visible")});
+  }
+
+  /* ---------- count-up metrics ---------- */
+  function runCounters(scope){
+    scope.querySelectorAll("[data-count]").forEach(function(el){
+      if(el.dataset.done)return; el.dataset.done="1";
+      var target=parseFloat(el.getAttribute("data-count"));
+      var dec=parseInt(el.getAttribute("data-dec")||"0",10);
+      var pre=el.getAttribute("data-pre")||"";
+      var suf=el.getAttribute("data-suf")||"";
+      if(reduce){el.textContent=pre+target.toFixed(dec)+suf;return;}
+      var dur=1300,start=performance.now();
+      function tick(now){
+        var p=Math.min((now-start)/dur,1);
+        var eased=1-Math.pow(1-p,3);
+        el.textContent=pre+(target*eased).toFixed(dec)+suf;
+        if(p<1)requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+  // observe standalone counter containers (proof cases)
+  if("IntersectionObserver" in window){
+    var cio=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ runCounters(e.target); cio.unobserve(e.target);} });
+    },{threshold:0.4});
+    document.querySelectorAll("[data-counter]").forEach(function(el){cio.observe(el)});
+  } else {
+    document.querySelectorAll("[data-counter]").forEach(runCounters);
+  }
+
+  /* ---------- contact form ---------- */
+  var form=document.getElementById("leadForm");
+  if(form){
+    form.addEventListener("submit",function(ev){
+      ev.preventDefault();
+      var d=new FormData(form);
+      var lang=docEl.getAttribute("lang");
+      var subject=encodeURIComponent("[Point 137] "+(d.get("name")||"")+" · "+(d.get("need")||""));
+      var bodyLines=[
+        "Name: "+(d.get("name")||""),
+        "Email: "+(d.get("email")||""),
+        "Company: "+(d.get("company")||""),
+        "Need: "+(d.get("need")||""),
+        "Budget: "+(d.get("budget")||""),
+        "Timeline: "+(d.get("timeline")||""),
+        "",
+        (d.get("message")||"")
+      ];
+      var mailto="mailto:hello@point137.com?subject="+subject+"&body="+encodeURIComponent(bodyLines.join("\n"));
+      window.location.href=mailto;
+      form.style.display="none";
+      var ok=document.getElementById("formSuccess");
+      ok.classList.add("show");
+      ok.setAttribute("tabindex","-1"); ok.focus();
+    });
+  }
+
+  /* ---------- scroll progress + hero cue ---------- */
+  var bar=document.getElementById("scrollbar");
+  function onScrollProgress(){
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    var p=max>0?(window.scrollY/max):0;
+    if(bar) bar.style.transform="scaleX("+p.toFixed(4)+")";
+    document.body.classList.toggle("past-hero",window.scrollY>window.innerHeight*0.5);
+  }
+  onScrollProgress(); window.addEventListener("scroll",onScrollProgress,{passive:true});
+
+  /* ---------- scroll-spy active nav ---------- */
+  var spyLinks={};
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach(function(a){ spyLinks[a.getAttribute("href").slice(1)]=a; });
+  if("IntersectionObserver" in window){
+    var spy=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var id=e.target.id;
+          Object.keys(spyLinks).forEach(function(k){ spyLinks[k].classList.toggle("active",k===id); });
+        }
+      });
+    },{rootMargin:"-45% 0px -50% 0px"});
+    document.querySelectorAll("main section[id]").forEach(function(s){ spy.observe(s); });
+  }
+
+  /* ---------- magnetic primary buttons ---------- */
+  if(!reduce && window.matchMedia("(pointer:fine)").matches){
+    document.querySelectorAll(".btn-primary").forEach(function(b){
+      b.addEventListener("mousemove",function(e){
+        var r=b.getBoundingClientRect();
+        var mx=e.clientX-r.left-r.width/2, my=e.clientY-r.top-r.height/2;
+        b.style.transform="translate("+(mx*0.18).toFixed(1)+"px,"+(my*0.3-2).toFixed(1)+"px)";
+      });
+      b.addEventListener("mouseleave",function(){ b.style.transform=""; });
+    });
+  }
+
+  /* ---------- hero discovery field (trends · charts · patterns · symbols) ---------- */
+  function buildField(){
+    var W=1440,H=900,out=[];
+    var R=function(a,b){return a+Math.random()*(b-a);},I=function(a,b){return Math.floor(R(a,b+1));},P=function(a){return a[Math.floor(Math.random()*a.length)];};
+    var NS='vector-effect="non-scaling-stroke"';
+    function trend(){
+      var w=R(110,150),h=R(56,82),n=I(5,7),pts=[],y=h-R(2,10);
+      for(var i=0;i<n;i++){var px=i*(w/(n-1));y=Math.max(4,Math.min(h,y-R(h*0.05,h*0.30)));pts.push([px,y]);}
+      var d=pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ');
+      var area='M0,'+h.toFixed(1)+' L'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' L')+' L'+w.toFixed(1)+','+h.toFixed(1)+' Z';
+      return '<path d="'+area+'" fill="currentColor" opacity="0.12"/><polyline points="'+d+'" fill="none" stroke="currentColor" stroke-width="2" '+NS+' stroke-linecap="round" stroke-linejoin="round"/><circle cx="'+pts[n-1][0].toFixed(1)+'" cy="'+pts[n-1][1].toFixed(1)+'" r="3" fill="currentColor"/>';
+    }
+    function bars(){
+      var n=I(5,7),bw=R(9,13),gap=R(6,9),h=R(54,78),s='';
+      for(var i=0;i<n;i++){var bh=Math.min(h,h*((i+1)/n)*R(0.7,1.05)),x=i*(bw+gap);s+='<rect x="'+x.toFixed(1)+'" y="'+(h-bh).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="1.5" fill="currentColor" opacity="'+(0.45+0.5*(i/n)).toFixed(2)+'"/>';}
+      return s;
+    }
+    function candles(){
+      var n=I(4,6),step=R(13,17),s='',mid=R(30,42);
+      for(var i=0;i<n;i++){var x=i*step,o=mid+R(-16,16),c=mid+R(-16,16),hi=Math.min(o,c)-R(4,12),lo=Math.max(o,c)+R(4,12);s+='<line x1="'+x+'" y1="'+hi.toFixed(1)+'" x2="'+x+'" y2="'+lo.toFixed(1)+'" stroke="currentColor" stroke-width="1.5" '+NS+'/><rect x="'+(x-3)+'" y="'+Math.min(o,c).toFixed(1)+'" width="6" height="'+Math.max(2,Math.abs(c-o)).toFixed(1)+'" fill="currentColor" opacity="0.8"/>';}
+      return s;
+    }
+    function net(){
+      var nodes=[],n=I(5,7),s='',i,j;
+      for(i=0;i<n;i++)nodes.push([R(0,120),R(0,90)]);
+      for(i=0;i<n;i++)for(j=i+1;j<n;j++)if(Math.random()<0.45)s+='<line x1="'+nodes[i][0].toFixed(1)+'" y1="'+nodes[i][1].toFixed(1)+'" x2="'+nodes[j][0].toFixed(1)+'" y2="'+nodes[j][1].toFixed(1)+'" stroke="currentColor" stroke-width="1" '+NS+' opacity="0.55"/>';
+      for(i=0;i<n;i++)s+='<circle cx="'+nodes[i][0].toFixed(1)+'" cy="'+nodes[i][1].toFixed(1)+'" r="'+R(2.2,3.6).toFixed(1)+'" fill="currentColor"/>';
+      return s;
+    }
+    function orbit(){
+      var cx=40,cy=40,a=R(0,6.28),b=R(0,6.28);
+      return '<circle cx="'+cx+'" cy="'+cy+'" r="34" fill="none" stroke="currentColor" stroke-width="1.2" '+NS+' opacity="0.5"/><circle cx="'+cx+'" cy="'+cy+'" r="20" fill="none" stroke="currentColor" stroke-width="1.2" '+NS+' opacity="0.75"/><circle cx="'+(cx+34*Math.cos(a)).toFixed(1)+'" cy="'+(cy+34*Math.sin(a)).toFixed(1)+'" r="3.2" fill="currentColor"/><circle cx="'+(cx+20*Math.cos(b)).toFixed(1)+'" cy="'+(cy+20*Math.sin(b)).toFixed(1)+'" r="2.4" fill="currentColor"/><circle cx="'+cx+'" cy="'+cy+'" r="2.5" fill="currentColor"/>';
+    }
+    function wave(){
+      var w=130,amp=R(10,20),per=R(12,20),d='M0,30';
+      for(var x=6;x<=w;x+=6)d+=' L'+x+','+(30+amp*Math.sin(x/per)).toFixed(1);
+      return '<path d="'+d+'" fill="none" stroke="currentColor" stroke-width="2" '+NS+' stroke-linecap="round"/>';
+    }
+    function ring(){
+      var cx=34,cy=34,r=26,frac=R(0.45,0.85),a0=-Math.PI/2,a1=a0+frac*2*Math.PI;
+      var x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1),lg=frac>0.5?1:0;
+      return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="currentColor" stroke-width="3" '+NS+' opacity="0.16"/><path d="M'+x0.toFixed(1)+','+y0.toFixed(1)+' A'+r+','+r+' 0 '+lg+' 1 '+x1.toFixed(1)+','+y1.toFixed(1)+'" fill="none" stroke="currentColor" stroke-width="3" '+NS+' stroke-linecap="round"/>';
+    }
+    function dots(){
+      var s='',cols=I(4,6),rows=I(3,4),gap=R(13,17),r,c;
+      for(r=0;r<rows;r++)for(c=0;c<cols;c++)s+='<circle cx="'+(c*gap).toFixed(1)+'" cy="'+(r*gap).toFixed(1)+'" r="1.8" fill="currentColor" opacity="0.7"/>';
+      return s;
+    }
+    function arrowUp(){
+      return '<path d="M2,40 L40,2" stroke="currentColor" stroke-width="2.4" '+NS+' stroke-linecap="round"/><path d="M22,2 L40,2 L40,20" fill="none" stroke="currentColor" stroke-width="2.4" '+NS+' stroke-linecap="round" stroke-linejoin="round"/>';
+    }
+    function symbol(){
+      var sym=P(['α','Σ','∫','Δ','∂','∞','π','√','λ','Ω','%','≈','∇','φ','µ']),fs=R(48,88);
+      return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-size="'+fs.toFixed(0)+'" fill="currentColor" dominant-baseline="middle" text-anchor="middle">'+sym+'</text>';
+    }
+    function scatter(){
+      var s='',n=I(6,9),i;
+      for(i=0;i<n;i++){var x=R(2,120),y=R(6,68);s+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="2.2" fill="currentColor" opacity="0.85"/>';}
+      s+='<line x1="2" y1="64" x2="118" y2="'+R(8,26).toFixed(1)+'" stroke="currentColor" stroke-width="1.6" '+NS+' stroke-dasharray="4 3" opacity="0.9"/>';
+      return s;
+    }
+    function words(){
+      var L=['STRATEGY','GROWTH','MARGIN','VELOCITY','AUTOMATION','DATA','AI','RETENTION','GTM','PRICING','SCALE','PILOT','KPI','EBITDA','ROI','FORECAST','SIGNAL','OUTCOMES','MARGEN','CRECIMIENTO','VELOCIDAD','DATOS','PRODUCT','SUPPLY','DECISION','AGENTS','WORKFLOWS','OPS','ECONOMICS','LATAM'];
+      var t=P(L),fs=R(13,19);
+      return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-weight="700" font-size="'+fs.toFixed(0)+'" letter-spacing="'+R(0.5,2).toFixed(1)+'" fill="currentColor" dominant-baseline="middle" text-anchor="middle">'+t+'</text>';
+    }
+    function formula(){
+      var L=['α = 1/137','LTV ÷ CAC','Δmargin ↑','ROI ▲','Σ impact','∂P/∂t','1/137.036','+65pp','3× rev','churn ↓','y = mx + b','CAC ↓ LTV ↑','MoM ▲','∫ f dx','Δ% ▲','π·r²','EBIT +11pp','NPV ▲','P/L ▲','√n · t'];
+      var t=P(L),fs=R(12,18);
+      return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-size="'+fs.toFixed(0)+'" fill="currentColor" dominant-baseline="middle" text-anchor="middle" opacity="0.92">'+t+'</text>';
+    }
+    /* ---- BI dashboard motifs ---- */
+    function panel(w,h){return '<rect x="0" y="0" width="'+w+'" height="'+h+'" rx="4" fill="none" stroke="currentColor" stroke-width="1.1" '+NS+' opacity="0.5"/>';}
+    function dashBars(){
+      var w=120,h=80,s=panel(w,h);
+      s+='<rect x="8" y="9" width="34" height="4" rx="2" fill="currentColor" opacity="0.7"/><rect x="92" y="9" width="20" height="4" rx="2" fill="currentColor" opacity="0.4"/>';
+      s+='<line x1="8" y1="66" x2="112" y2="66" stroke="currentColor" stroke-width="1" '+NS+' opacity="0.4"/>';
+      var n=6,bw=11,gap=6,x0=12;
+      for(var i=0;i<n;i++){var bh=R(8,42);s+='<rect x="'+(x0+i*(bw+gap))+'" y="'+(66-bh).toFixed(1)+'" width="'+bw+'" height="'+bh.toFixed(1)+'" fill="currentColor" opacity="'+(0.45+0.4*Math.random()).toFixed(2)+'"/>';}
+      return s;
+    }
+    function dashCombo(){
+      var w=124,h=82,s=panel(w,h);
+      s+='<rect x="8" y="9" width="40" height="4" rx="2" fill="currentColor" opacity="0.65"/>';
+      var n=6,bw=10,gap=8,x0=12,pts=[];
+      for(var i=0;i<n;i++){var bh=R(10,40),x=x0+i*(bw+gap);s+='<rect x="'+x+'" y="'+(68-bh).toFixed(1)+'" width="'+bw+'" height="'+bh.toFixed(1)+'" fill="currentColor" opacity="0.33"/>';pts.push([x+bw/2,Math.max(10,68-bh-R(3,9))]);}
+      s+='<polyline points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'" fill="none" stroke="currentColor" stroke-width="1.8" '+NS+' stroke-linecap="round" stroke-linejoin="round"/>';
+      for(var j=0;j<pts.length;j++)s+='<circle cx="'+pts[j][0].toFixed(1)+'" cy="'+pts[j][1].toFixed(1)+'" r="1.8" fill="currentColor"/>';
+      return s;
+    }
+    function dashKPI(){
+      var w=106,h=60,s=panel(w,h);
+      s+='<rect x="11" y="11" width="22" height="3" rx="1.5" fill="currentColor" opacity="0.45"/>';
+      s+='<text x="11" y="30" font-family="\'Space Mono\',monospace" font-weight="700" font-size="17" fill="currentColor">'+P(['+24%','3.2×','$1.4M','98.7%','+11pp','+65pp'])+'</text>';
+      var sx=11,sw=84,n=8,y=50,pts=[];
+      for(var i=0;i<n;i++){y=Math.max(40,Math.min(53,y-R(-3.5,4.5)));pts.push([sx+i*(sw/(n-1)),y]);}
+      s+='<polyline points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'" fill="none" stroke="currentColor" stroke-width="1.5" '+NS+' opacity="0.85"/>';
+      return s;
+    }
+    function donut(){
+      var cx=34,cy=34,r=23,segs=[R(0.22,0.4),R(0.18,0.32),R(0.14,0.26)],circ=2*Math.PI*r,off=0,s='';
+      s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="currentColor" stroke-width="8" '+NS+' opacity="0.15"/>';
+      for(var i=0;i<segs.length;i++){var len=segs[i]*circ;s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="currentColor" stroke-width="8" '+NS+' stroke-dasharray="'+len.toFixed(1)+' '+(circ-len).toFixed(1)+'" stroke-dashoffset="'+(-off).toFixed(1)+'" opacity="'+(0.4+0.22*i).toFixed(2)+'" transform="rotate(-90 '+cx+' '+cy+')"/>';off+=len;}
+      return s;
+    }
+    function table(){
+      var w=112,h=72,rows=4,cols=3,s=panel(w,h),rh=(h-16)/rows;
+      s+='<rect x="0" y="0" width="'+w+'" height="16" fill="currentColor" opacity="0.22"/>';
+      for(var rr=1;rr<rows;rr++)s+='<line x1="0" y1="'+(16+rr*rh).toFixed(1)+'" x2="'+w+'" y2="'+(16+rr*rh).toFixed(1)+'" stroke="currentColor" stroke-width="0.8" '+NS+' opacity="0.35"/>';
+      for(var cc=1;cc<cols;cc++)s+='<line x1="'+(cc*(w/cols)).toFixed(1)+'" y1="0" x2="'+(cc*(w/cols)).toFixed(1)+'" y2="'+h+'" stroke="currentColor" stroke-width="0.8" '+NS+' opacity="0.35"/>';
+      for(var k=0;k<3;k++)s+='<rect x="6" y="'+(20+k*rh).toFixed(1)+'" width="'+R(10,24).toFixed(1)+'" height="3" rx="1.5" fill="currentColor" opacity="0.5"/>';
+      return s;
+    }
+    /* ---- compact texture motifs (wallpaper density) ---- */
+    var SYMS=['α','Σ','∫','Δ','∂','∞','π','√','λ','Ω','%','≈','∇','φ','µ','σ'];
+    var TOKENS=['AI','ML','ROI','KPI','GTM','CAC','LTV','NPV','EBIT','OPS','BI','API','ETL','SQL','P/L','GROWTH','DATA','DATOS','SCALE','MARGIN','MARGEN','PILOT','AGENTS','SIGNAL','FORECAST','PRICING','RETENTION','VELOCITY','VELOCIDAD','AUTOMATION','THROUGHPUT','LATAM','CHURN','UPLIFT','YIELD','SaaS','MoM','YoY','LLM'];
+    var NUMS=['+24%','+11pp','+65pp','3×','1.5×','0.87','98.7%','137','1/137','≤1%','+12%','-15pp','×2','Δ8%','R²','p95','24/7','+1.4M','2.3σ'];
+    function miniSpark(){var n=I(5,7),w=R(24,38),y=R(10,16),pts=[];for(var i=0;i<n;i++){var x=i*(w/(n-1));y=Math.max(2,Math.min(18,y-R(-3,4)));pts.push(x.toFixed(1)+','+y.toFixed(1));}return '<polyline points="'+pts.join(' ')+'" fill="none" stroke="currentColor" stroke-width="1.4" '+NS+' stroke-linecap="round" stroke-linejoin="round"/>';}
+    function miniBars(){var n=I(3,5),bw=R(3,5),gap=R(2,3),h=R(10,20),s='';for(var i=0;i<n;i++){var bh=h*R(0.4,1);s+='<rect x="'+(i*(bw+gap)).toFixed(1)+'" y="'+(h-bh).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" fill="currentColor" opacity="'+(0.5+0.4*Math.random()).toFixed(2)+'"/>';}return s;}
+    function miniWave(){var w=R(24,36),a=R(3,6),d='M0,9';for(var x=4;x<=w;x+=4)d+=' L'+x+','+(9+a*Math.sin(x/4)).toFixed(1);return '<path d="'+d+'" fill="none" stroke="currentColor" stroke-width="1.3" '+NS+'/>';}
+    function miniArrow(){return '<path d="M1,18 L17,2" stroke="currentColor" stroke-width="1.6" '+NS+' stroke-linecap="round"/><path d="M9,2 L17,2 L17,10" fill="none" stroke="currentColor" stroke-width="1.6" '+NS+' stroke-linecap="round" stroke-linejoin="round"/>';}
+    function miniDots(){var s='',mc=I(3,4),mr=I(2,3),g=R(5,7);for(var rr=0;rr<mr;rr++)for(var cc=0;cc<mc;cc++)s+='<circle cx="'+(cc*g).toFixed(1)+'" cy="'+(rr*g).toFixed(1)+'" r="1.2" fill="currentColor" opacity="0.7"/>';return s;}
+    function miniRing(){var r=R(6,9);return '<circle cx="0" cy="0" r="'+r.toFixed(1)+'" fill="none" stroke="currentColor" stroke-width="1.4" '+NS+'/><circle cx="0" cy="0" r="1.6" fill="currentColor"/>';}
+    function miniScatter(){var s='',n=I(4,6);for(var i=0;i<n;i++)s+='<circle cx="'+R(0,26).toFixed(1)+'" cy="'+R(0,16).toFixed(1)+'" r="1.3" fill="currentColor" opacity="0.8"/>';s+='<line x1="0" y1="15" x2="26" y2="'+R(2,8).toFixed(1)+'" stroke="currentColor" stroke-width="1" '+NS+' stroke-dasharray="3 2" opacity="0.8"/>';return s;}
+    function tick(){return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-size="'+R(10,16).toFixed(0)+'" fill="currentColor" dominant-baseline="middle" text-anchor="middle" opacity="0.7">'+P(['+','×','·','/','='])+'</text>';}
+    function sSym(){return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-size="'+R(16,26).toFixed(0)+'" fill="currentColor" dominant-baseline="middle" text-anchor="middle">'+P(SYMS)+'</text>';}
+    function token(){return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-weight="700" font-size="'+R(10,14).toFixed(0)+'" letter-spacing="0.5" fill="currentColor" dominant-baseline="middle" text-anchor="middle">'+P(TOKENS)+'</text>';}
+    function numTok(){return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-size="'+R(10,14).toFixed(0)+'" fill="currentColor" dominant-baseline="middle" text-anchor="middle" opacity="0.92">'+P(NUMS)+'</text>';}
+
+    var small=[token,token,token,numTok,numTok,sSym,sSym,miniSpark,miniSpark,miniBars,miniBars,miniWave,miniArrow,miniDots,miniRing,miniScatter,tick];
+    var medium=[trend,bars,candles,net,orbit,scatter,wave,dashBars,dashCombo,dashKPI,donut,table];
+    var topLeft={miniSpark:1,miniBars:1,miniWave:1,miniArrow:1,miniDots:1,miniScatter:1};
+
+    var bigScreen=(typeof window!=='undefined'&&window.innerWidth>900);
+    var cols=bigScreen?40:22,rows=bigScreen?26:18,cw=W/cols,ch=H/rows;
+    for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
+      if(Math.random()<0.02)continue;
+      var cxp=c*cw+cw*0.5+R(-cw*0.3,cw*0.3),cyp=r*ch+ch*0.5+R(-ch*0.3,ch*0.3);
+      var big=Math.random()<0.09,f,sc,off='';
+      if(big){
+        f=P(medium);
+        if(f===donut){sc=R(0.32,0.5);off=' translate(-34,-34)';}
+        else if(f===dashBars||f===dashCombo||f===dashKPI||f===table){sc=R(0.32,0.5);off=' translate(-57,-37)';}
+        else{sc=R(0.34,0.55);off=' translate(-55,-38)';}
+      }else{
+        f=P(small);sc=R(0.7,1.15);
+        if(topLeft[f.name])off=' translate(-15,-9)';
+      }
+      out.push('<g transform="translate('+cxp.toFixed(1)+','+cyp.toFixed(1)+') scale('+sc.toFixed(2)+')'+off+'" opacity="'+R(0.6,1).toFixed(2)+'">'+f()+'</g>');
+    }
+    return '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+out.join('')+'</svg>';
+  }
+  var hf=document.getElementById("heroField");
+  if(hf){
+    var gBase=document.getElementById("glyphBase"), gLit=document.getElementById("glyphLit");
+    var field=buildField();
+    if(gBase) gBase.innerHTML=field;
+    if(gLit) gLit.innerHTML=field;
+    if(!reduce){
+      var fine=window.matchMedia("(pointer:fine)").matches, rafM=null, tx=-400, ty=-400;
+      function place(x,y){ hf.style.setProperty("--mx",x+"px"); hf.style.setProperty("--my",y+"px"); }
+      if(fine){
+        var hero=hf.parentNode;
+        hero.addEventListener("mousemove",function(e){
+          var r=hf.getBoundingClientRect();
+          tx=e.clientX-r.left; ty=e.clientY-r.top;
+          hf.classList.add("active");
+          if(!rafM) rafM=requestAnimationFrame(function(){ place(tx,ty); rafM=null; });
+        });
+        hero.addEventListener("mouseleave",function(){ hf.classList.remove("active"); place(-400,-400); });
+      } else {
+        hf.classList.add("active");
+        var t0=performance.now();
+        (function drift(now){
+          var r=hf.getBoundingClientRect();
+          place(r.width*(0.5+0.30*Math.cos((now-t0)/3400)), r.height*(0.46+0.26*Math.sin((now-t0)/2600)));
+          if(!document.hidden) requestAnimationFrame(drift);
+        })(performance.now());
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>
