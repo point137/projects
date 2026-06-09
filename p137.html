@@ -10,6 +10,11 @@
 <meta property="og:description" content="Senior-led strategy coupled with hands-on execution in automation, AI, and data. Outcomes you can measure." />
 <meta property="og:url" content="https://www.point137.com" />
 <meta name="theme-color" content="#0A0B0F" />
+<link rel="icon" href="assets/favicon.ico?v=2" sizes="any">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -98,7 +103,8 @@ h3{font-size:clamp(1.15rem,2vw,1.45rem);letter-spacing:-0.01em}
 .nav-links a:hover::after{width:100%}
 .nav-right{display:flex;align-items:center;gap:1.1rem}
 .lang{display:inline-flex;border:1px solid var(--hairline-strong);border-radius:7px;overflow:hidden;font-family:var(--font-mono);font-size:.74rem}
-.lang button{background:transparent;border:0;color:var(--mist);padding:.42rem .6rem;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:.05em;transition:background .2s,color .2s}
+.lang button{display:inline-flex;align-items:center;gap:.4rem;background:transparent;border:0;color:var(--mist);padding:.42rem .62rem;cursor:pointer;font-family:inherit;font-size:inherit;letter-spacing:.05em;transition:background .2s,color .2s}
+.lang .flag{width:18px;height:12px;border-radius:2px;display:block;flex:0 0 auto;box-shadow:0 0 0 1px rgba(255,255,255,.22)}
 .lang button.active{background:var(--accent);color:var(--obsidian);font-weight:700}
 .nav .btn{padding:.7rem 1.15rem;font-size:.9rem}
 .hamburger{display:none;background:none;border:0;cursor:pointer;width:30px;height:24px;position:relative}
@@ -118,10 +124,9 @@ h3{font-size:clamp(1.15rem,2vw,1.45rem);letter-spacing:-0.01em}
 /* hero */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:6rem}
 .hero-field{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero-field .glyphs{position:absolute;inset:0;margin:0;overflow:hidden;user-select:none;pointer-events:none}
-.hero-field .glyphs svg{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero-field .base{color:rgba(234,236,242,0.05)}
-.hero-field .lit{color:var(--accent);opacity:1;-webkit-mask-image:radial-gradient(circle 180px at var(--mx,-300px) var(--my,-300px),#000 0%,rgba(0,0,0,.55) 48%,transparent 74%);mask-image:radial-gradient(circle 180px at var(--mx,-300px) var(--my,-300px),#000 0%,rgba(0,0,0,.55) 48%,transparent 74%)}
+.hero-field .glyphs{position:absolute;inset:0;margin:0;overflow:hidden;user-select:none;pointer-events:none;background:url("assets/hero-field.webp?v=3") center center / cover no-repeat}
+.hero-field .base{opacity:0.13}
+.hero-field .lit{opacity:1;-webkit-mask-image:radial-gradient(circle 190px at var(--mx,-300px) var(--my,-300px),#000 0%,rgba(0,0,0,.55) 48%,transparent 74%);mask-image:radial-gradient(circle 190px at var(--mx,-300px) var(--my,-300px),#000 0%,rgba(0,0,0,.55) 48%,transparent 74%)}
 .hero-field .lens{position:absolute;left:var(--mx,-400px);top:var(--my,-400px);width:380px;height:380px;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(46,107,245,0.16),transparent 70%);opacity:0;transition:opacity .35s var(--ease)}
 .hero-field.active .lens{opacity:1}
 .scrollcue{position:absolute;bottom:1.7rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.7rem;font-family:var(--font-mono);font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--mist);transition:opacity .4s var(--ease)}
@@ -193,12 +198,12 @@ body.past-hero .scrollcue{opacity:0;pointer-events:none}
 .logos-marquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
 .logos-track{display:flex;align-items:center;gap:3.2rem;width:max-content;animation:marquee 48s linear infinite}
 .logos-marquee:hover .logos-track{animation-play-state:paused}
-.logo-item{display:inline-flex;align-items:center;justify-content:center;height:36px;white-space:nowrap;cursor:default}
-.logo-item img{height:30px;width:auto;max-width:148px;object-fit:contain;filter:brightness(0) invert(1);opacity:.5;transition:opacity .3s var(--ease),filter .3s var(--ease)}
-.logo-item:hover img{filter:none;opacity:1}
-.logo-item i{display:none;font-style:normal;font-family:var(--font-display);font-weight:500;font-size:clamp(1rem,1.5vw,1.3rem);letter-spacing:.01em;color:var(--mist);opacity:.6;transition:color .3s var(--ease),opacity .3s var(--ease)}
+.logo-item{display:inline-flex;align-items:center;justify-content:center;height:30px;white-space:nowrap;cursor:default}
+.logo-item img{height:26px;width:auto;max-width:180px;object-fit:contain;display:block;filter:brightness(0) invert(1);opacity:.7;transition:opacity .3s var(--ease)}
+.logo-item:hover img{opacity:1}
+.logo-item i{display:none;font-style:normal;font-family:var(--font-display);font-weight:600;font-size:1.05rem;letter-spacing:.02em;color:var(--mist);opacity:.7}
 .logo-item.is-text i{display:inline-block}
-.logo-item.is-text:hover i{color:var(--accent);opacity:1}
+.logo-item.is-text img{display:none}
 @keyframes marquee{to{transform:translateX(-50%)}}
 
 /* method (light) */
@@ -301,8 +306,8 @@ footer{border-top:1px solid var(--hairline);padding-block:clamp(3rem,6vw,4.5rem)
     </nav>
     <div class="nav-right">
       <div class="lang" role="group" aria-label="Language">
-        <button data-lang="en" class="active" aria-pressed="true">EN</button>
-        <button data-lang="es" aria-pressed="false">ES</button>
+        <button data-lang="en" class="active" aria-pressed="true"><img class="flag" src="assets/flag-us.svg" alt="" aria-hidden="true">EN</button>
+        <button data-lang="es" aria-pressed="false"><img class="flag" src="assets/flag-mx.svg" alt="" aria-hidden="true">ES</button>
       </div>
       <a href="#contact" class="btn btn-primary" data-en="Book a call" data-es="Agenda una llamada">Book a call</a>
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -518,8 +523,8 @@ footer{border-top:1px solid var(--hairline);padding-block:clamp(3rem,6vw,4.5rem)
       <p class="logos-label" data-en="Experience spanning leading institutions" data-es="Experiencia en instituciones líderes">Experience spanning leading institutions</p>
       <div class="logos-marquee" aria-hidden="true">
         <div class="logos-track">
-          <span class="logo-item"><img src="https://logo.clearbit.com/bbva.com" alt="BBVA" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>BBVA</i></span><span class="logo-item"><img src="https://logo.clearbit.com/santander.com" alt="Santander" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Santander</i></span><span class="logo-item"><img src="https://logo.clearbit.com/scotiabank.com" alt="Scotiabank" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Scotiabank</i></span><span class="logo-item"><img src="https://logo.clearbit.com/banorte.com" alt="Banorte" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Banorte</i></span><span class="logo-item"><img src="https://logo.clearbit.com/millwardbrown.com" alt="Millward Brown" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Millward Brown</i></span><span class="logo-item"><img src="https://logo.clearbit.com/ford.com" alt="Ford" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Ford</i></span><span class="logo-item"><img src="https://logo.clearbit.com/faurecia.com" alt="Faurecia" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Faurecia</i></span><span class="logo-item"><img src="https://logo.clearbit.com/bansefi.gob.mx" alt="Bansefi" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Bansefi</i></span><span class="logo-item"><img src="https://logo.clearbit.com/infonavit.org.mx" alt="Infonavit" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Infonavit</i></span><span class="logo-item"><img src="https://logo.clearbit.com/sagarpa.gob.mx" alt="SAGARPA" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SAGARPA</i></span><span class="logo-item"><img src="https://logo.clearbit.com/sat.gob.mx" alt="SAT" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SAT</i></span><span class="logo-item"><img src="https://logo.clearbit.com/shf.com.mx" alt="SHF" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SHF</i></span><span class="logo-item"><img src="https://logo.clearbit.com/amafore.org.mx" alt="AMAFORE" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>AMAFORE</i></span><span class="logo-item"><img src="https://logo.clearbit.com/actinver.com" alt="Actinver" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Actinver</i></span><span class="logo-item"><img src="https://logo.clearbit.com/pip.com.mx" alt="PiP" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>PiP</i></span><span class="logo-item"><img src="https://logo.clearbit.com/citi.com" alt="Citi" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Citi</i></span><span class="logo-item"><img src="https://logo.clearbit.com/ibm.com" alt="IBM" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>IBM</i></span>
-          <span class="logo-item"><img src="https://logo.clearbit.com/bbva.com" alt="BBVA" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>BBVA</i></span><span class="logo-item"><img src="https://logo.clearbit.com/santander.com" alt="Santander" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Santander</i></span><span class="logo-item"><img src="https://logo.clearbit.com/scotiabank.com" alt="Scotiabank" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Scotiabank</i></span><span class="logo-item"><img src="https://logo.clearbit.com/banorte.com" alt="Banorte" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Banorte</i></span><span class="logo-item"><img src="https://logo.clearbit.com/millwardbrown.com" alt="Millward Brown" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Millward Brown</i></span><span class="logo-item"><img src="https://logo.clearbit.com/ford.com" alt="Ford" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Ford</i></span><span class="logo-item"><img src="https://logo.clearbit.com/faurecia.com" alt="Faurecia" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Faurecia</i></span><span class="logo-item"><img src="https://logo.clearbit.com/bansefi.gob.mx" alt="Bansefi" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Bansefi</i></span><span class="logo-item"><img src="https://logo.clearbit.com/infonavit.org.mx" alt="Infonavit" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Infonavit</i></span><span class="logo-item"><img src="https://logo.clearbit.com/sagarpa.gob.mx" alt="SAGARPA" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SAGARPA</i></span><span class="logo-item"><img src="https://logo.clearbit.com/sat.gob.mx" alt="SAT" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SAT</i></span><span class="logo-item"><img src="https://logo.clearbit.com/shf.com.mx" alt="SHF" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>SHF</i></span><span class="logo-item"><img src="https://logo.clearbit.com/amafore.org.mx" alt="AMAFORE" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>AMAFORE</i></span><span class="logo-item"><img src="https://logo.clearbit.com/actinver.com" alt="Actinver" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Actinver</i></span><span class="logo-item"><img src="https://logo.clearbit.com/pip.com.mx" alt="PiP" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>PiP</i></span><span class="logo-item"><img src="https://logo.clearbit.com/citi.com" alt="Citi" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>Citi</i></span><span class="logo-item"><img src="https://logo.clearbit.com/ibm.com" alt="IBM" loading="lazy" onerror="this.parentNode.classList.add('is-text');this.remove()"><i>IBM</i></span>
+          <span class="logo-item"><img src="assets/logos/santander.png" alt="Santander" loading="lazy"><i>Santander</i></span><span class="logo-item"><img src="assets/logos/bbva.png" alt="BBVA" loading="lazy"><i>BBVA</i></span><span class="logo-item"><img src="assets/logos/banorte.png" alt="Banorte" loading="lazy"><i>Banorte</i></span><span class="logo-item"><img src="assets/logos/banamex.svg" alt="Banamex" loading="lazy"><i>Banamex</i></span><span class="logo-item"><img src="assets/logos/infonavit.png" alt="Infonavit" loading="lazy"><i>Infonavit</i></span><span class="logo-item"><img src="assets/logos/shf.png" alt="SHF" loading="lazy"><i>SHF</i></span><span class="logo-item"><img src="assets/logos/sat.svg" alt="SAT" loading="lazy"><i>SAT</i></span><span class="logo-item"><img src="assets/logos/amafore.svg" alt="AMAFORE" loading="lazy"><i>AMAFORE</i></span><span class="logo-item"><img src="assets/logos/ford.png" alt="Ford" loading="lazy"><i>Ford</i></span><span class="logo-item"><img src="assets/logos/ibm.svg" alt="IBM" loading="lazy"><i>IBM</i></span>
+          <span class="logo-item"><img src="assets/logos/santander.png" alt="Santander" loading="lazy"><i>Santander</i></span><span class="logo-item"><img src="assets/logos/bbva.png" alt="BBVA" loading="lazy"><i>BBVA</i></span><span class="logo-item"><img src="assets/logos/banorte.png" alt="Banorte" loading="lazy"><i>Banorte</i></span><span class="logo-item"><img src="assets/logos/banamex.svg" alt="Banamex" loading="lazy"><i>Banamex</i></span><span class="logo-item"><img src="assets/logos/infonavit.png" alt="Infonavit" loading="lazy"><i>Infonavit</i></span><span class="logo-item"><img src="assets/logos/shf.png" alt="SHF" loading="lazy"><i>SHF</i></span><span class="logo-item"><img src="assets/logos/sat.svg" alt="SAT" loading="lazy"><i>SAT</i></span><span class="logo-item"><img src="assets/logos/amafore.svg" alt="AMAFORE" loading="lazy"><i>AMAFORE</i></span><span class="logo-item"><img src="assets/logos/ford.png" alt="Ford" loading="lazy"><i>Ford</i></span><span class="logo-item"><img src="assets/logos/ibm.svg" alt="IBM" loading="lazy"><i>IBM</i></span>
         </div>
       </div>
     </div>
@@ -972,35 +977,40 @@ footer{border-top:1px solid var(--hairline);padding-block:clamp(3rem,6vw,4.5rem)
     function token(){return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-weight="700" font-size="'+R(10,14).toFixed(0)+'" letter-spacing="0.5" fill="currentColor" dominant-baseline="middle" text-anchor="middle">'+P(TOKENS)+'</text>';}
     function numTok(){return '<text x="0" y="0" font-family="\'Space Mono\',monospace" font-size="'+R(10,14).toFixed(0)+'" fill="currentColor" dominant-baseline="middle" text-anchor="middle" opacity="0.92">'+P(NUMS)+'</text>';}
 
-    var small=[token,token,token,numTok,numTok,sSym,sSym,miniSpark,miniSpark,miniBars,miniBars,miniWave,miniArrow,miniDots,miniRing,miniScatter,tick];
-    var medium=[trend,bars,candles,net,orbit,scatter,wave,dashBars,dashCombo,dashKPI,donut,table];
-    var topLeft={miniSpark:1,miniBars:1,miniWave:1,miniArrow:1,miniDots:1,miniScatter:1};
-
-    var bigScreen=(typeof window!=='undefined'&&window.innerWidth>900);
-    var cols=bigScreen?40:22,rows=bigScreen?26:18,cw=W/cols,ch=H/rows;
+    /* ---- charts & graphs library, all authored in a uniform 100x64 box (center 50,32) ---- */
+    var PW=84;
+    function areaChart(){var n=6,y=50,pts=[];for(var i=0;i<n;i++){y=Math.max(10,Math.min(54,y-R(0,12)));pts.push([8+i*(PW/(n-1)),y]);}var L=pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ');return '<path d="M8,56 L'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' L')+' L92,56 Z" fill="currentColor" opacity="0.14"/><polyline points="'+L+'" fill="none" stroke="currentColor" stroke-width="2" '+NS+' stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="56" x2="92" y2="56" stroke="currentColor" stroke-width="1" '+NS+' opacity="0.4"/>';}
+    function lineChart(){var n=7,pts=[],y=R(18,50);for(var i=0;i<n;i++){y=Math.max(10,Math.min(54,y+R(-10,9)));pts.push([8+i*(PW/(n-1)),y]);}var s='<polyline points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'" fill="none" stroke="currentColor" stroke-width="2" '+NS+' stroke-linecap="round" stroke-linejoin="round"/>';for(var j=0;j<pts.length;j++)s+='<circle cx="'+pts[j][0].toFixed(1)+'" cy="'+pts[j][1].toFixed(1)+'" r="1.6" fill="currentColor"/>';return s;}
+    function multiLine(){function ln(op){var n=7,pts=[],y=R(16,50);for(var i=0;i<n;i++){y=Math.max(10,Math.min(54,y+R(-9,8)));pts.push([8+i*(PW/(n-1)),y]);}return '<polyline points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'" fill="none" stroke="currentColor" stroke-width="1.8" '+NS+' stroke-linecap="round" stroke-linejoin="round" opacity="'+op+'"/>';}return ln('1')+ln('0.5');}
+    function stepChart(){var n=6,pts=[],y=50;for(var k=0;k<n;k++){y=Math.max(10,Math.min(54,y-R(-2,12)));pts.push([8+k*(PW/(n-1)),y]);}var d='M'+pts[0][0].toFixed(1)+','+pts[0][1].toFixed(1);for(var j=1;j<n;j++)d+=' L'+pts[j][0].toFixed(1)+','+pts[j-1][1].toFixed(1)+' L'+pts[j][0].toFixed(1)+','+pts[j][1].toFixed(1);return '<path d="'+d+'" fill="none" stroke="currentColor" stroke-width="2" '+NS+' stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="56" x2="92" y2="56" stroke="currentColor" stroke-width="1" '+NS+' opacity="0.35"/>';}
+    function barChart(){var n=6,step=PW/n,bw=step*0.6,s='<line x1="8" y1="56" x2="92" y2="56" stroke="currentColor" stroke-width="1" '+NS+' opacity="0.4"/>';for(var i=0;i<n;i++){var bh=R(8,46),x=8+i*step+(step-bw)/2;s+='<rect x="'+x.toFixed(1)+'" y="'+(56-bh).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="1" fill="currentColor" opacity="'+(0.5+0.4*(i/n)).toFixed(2)+'"/>';}return s;}
+    function histogram(){var n=9,bw=PW/n,s='<line x1="8" y1="56" x2="92" y2="56" stroke="currentColor" stroke-width="1" '+NS+' opacity="0.4"/>';for(var i=0;i<n;i++){var bh=R(6,46);s+='<rect x="'+(8+i*bw+0.6).toFixed(1)+'" y="'+(56-bh).toFixed(1)+'" width="'+(bw-1.2).toFixed(1)+'" height="'+bh.toFixed(1)+'" fill="currentColor" opacity="'+(0.4+0.4*Math.random()).toFixed(2)+'"/>';}return s;}
+    function comboChart(){var n=6,step=PW/n,bw=step*0.55,pts=[],s='';for(var i=0;i<n;i++){var bh=R(8,40),x=8+i*step+(step-bw)/2;s+='<rect x="'+x.toFixed(1)+'" y="'+(56-bh).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+bh.toFixed(1)+'" rx="1" fill="currentColor" opacity="0.32"/>';pts.push([x+bw/2,Math.max(8,56-bh-R(4,12))]);}s+='<polyline points="'+pts.map(function(p){return p[0].toFixed(1)+','+p[1].toFixed(1);}).join(' ')+'" fill="none" stroke="currentColor" stroke-width="2" '+NS+' stroke-linecap="round" stroke-linejoin="round"/>';return s;}
+    function candleChart(){var n=6,step=PW/n,s='';for(var i=0;i<n;i++){var x=8+i*step+step/2,o=R(18,46),c=R(18,46),hi=Math.min(o,c)-R(4,10),lo=Math.max(o,c)+R(4,10);s+='<line x1="'+x.toFixed(1)+'" y1="'+hi.toFixed(1)+'" x2="'+x.toFixed(1)+'" y2="'+lo.toFixed(1)+'" stroke="currentColor" stroke-width="1.4" '+NS+'/><rect x="'+(x-3).toFixed(1)+'" y="'+Math.min(o,c).toFixed(1)+'" width="6" height="'+Math.max(2,Math.abs(c-o)).toFixed(1)+'" fill="currentColor" opacity="0.8"/>';}return s;}
+    function scatterPlot(){var s='',n=I(7,10);for(var i=0;i<n;i++)s+='<circle cx="'+R(8,92).toFixed(1)+'" cy="'+R(10,54).toFixed(1)+'" r="1.8" fill="currentColor" opacity="0.85"/>';s+='<line x1="8" y1="52" x2="92" y2="'+R(12,26).toFixed(1)+'" stroke="currentColor" stroke-width="1.6" '+NS+' stroke-dasharray="5 3" opacity="0.9"/>';return s;}
+    function donutChart(){var cx=50,cy=32,r=18,segs=[R(0.2,0.4),R(0.18,0.3),R(0.12,0.24)],circ=2*Math.PI*r,off=0,s='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="currentColor" stroke-width="7" '+NS+' opacity="0.16"/>';for(var i=0;i<segs.length;i++){var len=segs[i]*circ;s+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="currentColor" stroke-width="7" '+NS+' stroke-dasharray="'+len.toFixed(1)+' '+(circ-len).toFixed(1)+'" stroke-dashoffset="'+(-off).toFixed(1)+'" opacity="'+(0.45+0.2*i).toFixed(2)+'" transform="rotate(-90 '+cx+' '+cy+')"/>';off+=len;}return s;}
+    function pieChart(){var cx=50,cy=32,r=19,a=[R(0.25,0.45),R(0.2,0.35)];a.push(Math.max(0.1,1-a[0]-a[1]));var a0=-Math.PI/2,s='';for(var i=0;i<a.length;i++){var a1=a0+a[i]*2*Math.PI,x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1),lg=a[i]>0.5?1:0;s+='<path d="M'+cx+','+cy+' L'+x0.toFixed(1)+','+y0.toFixed(1)+' A'+r+','+r+' 0 '+lg+' 1 '+x1.toFixed(1)+','+y1.toFixed(1)+' Z" fill="currentColor" opacity="'+(0.3+0.25*i).toFixed(2)+'" stroke="#0A0B0F" stroke-width="0.6"/>';a0=a1;}return s;}
+    function gaugeChart(){var cx=50,cy=42,r=22;function pt(an){return (cx+r*Math.cos(an)).toFixed(1)+','+(cy+r*Math.sin(an)).toFixed(1);}var frac=R(0.4,0.85),a1=Math.PI+frac*Math.PI;return '<path d="M'+pt(Math.PI)+' A'+r+','+r+' 0 0 1 '+pt(2*Math.PI)+'" fill="none" stroke="currentColor" stroke-width="6" '+NS+' opacity="0.16"/><path d="M'+pt(Math.PI)+' A'+r+','+r+' 0 0 1 '+pt(a1)+'" fill="none" stroke="currentColor" stroke-width="6" '+NS+' stroke-linecap="round"/><circle cx="'+cx+'" cy="'+cy+'" r="2" fill="currentColor"/>';}
+    function radarChart(){var cx=50,cy=32,RR=22,k=5,i,p,grid='',pp='';function pt(rr,idx){var an=-Math.PI/2+idx*2*Math.PI/k;return [cx+rr*Math.cos(an),cy+rr*Math.sin(an)];}for(i=0;i<k;i++){p=pt(RR,i);grid+=(i?' L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1);}for(i=0;i<k;i++){p=pt(RR*R(0.4,1),i);pp+=(i?' L':'M')+p[0].toFixed(1)+','+p[1].toFixed(1);}return '<path d="'+grid+' Z" fill="none" stroke="currentColor" stroke-width="1" '+NS+' opacity="0.35"/><path d="'+pp+' Z" fill="currentColor" fill-opacity="0.18" stroke="currentColor" stroke-width="1.6" '+NS+'/>';}
+    function heatmap(){var c2=6,r2=4,cw2=PW/c2,ch2=48/r2,s='';for(var y2=0;y2<r2;y2++)for(var x2=0;x2<c2;x2++)s+='<rect x="'+(8+x2*cw2).toFixed(1)+'" y="'+(8+y2*ch2).toFixed(1)+'" width="'+(cw2-1.5).toFixed(1)+'" height="'+(ch2-1.5).toFixed(1)+'" rx="1" fill="currentColor" opacity="'+R(0.12,0.85).toFixed(2)+'"/>';return s;}
+    function progressRows(){var s='';for(var i=0;i<3;i++){var y=15+i*15;s+='<rect x="8" y="'+y+'" width="84" height="5" rx="2.5" fill="currentColor" opacity="0.18"/><rect x="8" y="'+y+'" width="'+R(22,82).toFixed(1)+'" height="5" rx="2.5" fill="currentColor" opacity="0.8"/>';}return s;}
+    var charts=[areaChart,lineChart,multiLine,stepChart,barChart,histogram,comboChart,candleChart,scatterPlot,donutChart,pieChart,gaugeChart,radarChart,heatmap,progressRows];
+    var LBL=['+24%','3×','98%','×2','2.4×','ROI','MoM','YoY','+12%','1.5×','KPI','GMV','CAC','LTV','+65','99%'];
+    /* uniform tiling: identical 100x64 footprint per cell -> every element the same size, even gutters, no overlap */
+    var BW=100,BH=64,cols=30,rows=29,cw=W/cols,ch=H/rows,PAD=0.82,K=Math.min(cw*PAD/BW,ch*PAD/BH);
     for(var r=0;r<rows;r++)for(var c=0;c<cols;c++){
-      if(Math.random()<0.02)continue;
-      var cxp=c*cw+cw*0.5+R(-cw*0.3,cw*0.3),cyp=r*ch+ch*0.5+R(-ch*0.3,ch*0.3);
-      var big=Math.random()<0.09,f,sc,off='';
-      if(big){
-        f=P(medium);
-        if(f===donut){sc=R(0.32,0.5);off=' translate(-34,-34)';}
-        else if(f===dashBars||f===dashCombo||f===dashKPI||f===table){sc=R(0.32,0.5);off=' translate(-57,-37)';}
-        else{sc=R(0.34,0.55);off=' translate(-55,-38)';}
+      var X=(c+0.5)*cw,Y=(r+0.5)*ch,op=R(0.75,1).toFixed(2);
+      if(Math.random()<0.15){
+        out.push('<g transform="translate('+X.toFixed(1)+','+Y.toFixed(1)+') scale('+K.toFixed(3)+')" opacity="'+op+'"><text x="0" y="0" font-family="\'Space Mono\',monospace" font-weight="700" font-size="40" fill="currentColor" dominant-baseline="middle" text-anchor="middle">'+P(LBL)+'</text></g>');
       }else{
-        f=P(small);sc=R(0.7,1.15);
-        if(topLeft[f.name])off=' translate(-15,-9)';
+        out.push('<g transform="translate('+X.toFixed(1)+','+Y.toFixed(1)+') scale('+K.toFixed(3)+') translate(-50,-32)" opacity="'+op+'">'+P(charts)()+'</g>');
       }
-      out.push('<g transform="translate('+cxp.toFixed(1)+','+cyp.toFixed(1)+') scale('+sc.toFixed(2)+')'+off+'" opacity="'+R(0.6,1).toFixed(2)+'">'+f()+'</g>');
     }
     return '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">'+out.join('')+'</svg>';
   }
   var hf=document.getElementById("heroField");
   if(hf){
-    var gBase=document.getElementById("glyphBase"), gLit=document.getElementById("glyphLit");
-    var field=buildField();
-    if(gBase) gBase.innerHTML=field;
-    if(gLit) gLit.innerHTML=field;
+    /* Field is pre-rendered to assets/hero-field.webp and shown via CSS background (.base faint, .lit revealed by the spotlight mask). No runtime SVG = fast navigation. buildField() above is kept only as the source generator. */
     if(!reduce){
       var fine=window.matchMedia("(pointer:fine)").matches, rafM=null, tx=-400, ty=-400;
       function place(x,y){ hf.style.setProperty("--mx",x+"px"); hf.style.setProperty("--my",y+"px"); }
